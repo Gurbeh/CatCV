@@ -38,7 +38,13 @@ export function JobsTable() {
             <TableCell className="font-medium">{job.companyName}</TableCell>
             <TableCell>
               {job.jobLink ? (
-                <a href={job.jobLink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 hover:underline">
+                <a
+                  href={job.jobLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  title={job.jobLink}
+                  className="inline-flex items-center gap-1 hover:underline"
+                >
                   Open <ExternalLink className="h-4 w-4" />
                 </a>
               ) : (
@@ -56,6 +62,7 @@ export function JobsTable() {
                   variant="outline"
                   size="sm"
                   aria-label="Copy job link"
+                  title={job.jobLink ? 'Copy job link' : 'No link'}
                   disabled={!job.jobLink}
                   onClick={async () => {
                     try {

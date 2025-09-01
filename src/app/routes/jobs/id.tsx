@@ -25,7 +25,13 @@ export default function JobDetailPage() {
         <CardTitle>{job.companyName}</CardTitle>
         <CardDescription className="flex items-center gap-2">
           {job.jobLink ? (
-            <a href={job.jobLink} target="_blank" rel="noreferrer" className="hover:underline">
+            <a
+              href={job.jobLink}
+              target="_blank"
+              rel="noreferrer"
+              title={job.jobLink}
+              className="hover:underline"
+            >
               Job posting
             </a>
           ) : (
