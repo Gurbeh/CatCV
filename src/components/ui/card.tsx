@@ -1,9 +1,14 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
 
+// MagicUI-inspired gradient border card
 export function Card({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn('rounded-lg border bg-card text-card-foreground shadow-sm', className)} {...props} />
+    <div className={cn('rounded-xl bg-gradient-to-r from-blue-500/20 to-cyan-500/20 p-[1px] shadow-sm', className)}>
+      <div className="rounded-[11px] bg-card text-card-foreground">
+        <div {...props} />
+      </div>
+    </div>
   )
 }
 
@@ -26,4 +31,3 @@ export function CardContent({ className, ...props }: React.HTMLAttributes<HTMLDi
 export function CardFooter({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
   return <div className={cn('flex items-center p-6 pt-0', className)} {...props} />
 }
-

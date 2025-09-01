@@ -2,7 +2,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useJobs } from '@/lib/jobsContext'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { buttonClasses } from '@/components/ui/button'
 import { formatDate } from '@/lib/date'
 
 export default function JobDetailPage() {
@@ -14,9 +14,7 @@ export default function JobDetailPage() {
     return (
       <div className="space-y-4">
         <p>Job not found.</p>
-        <Button asChild variant="outline">
-          <Link to="/">Back</Link>
-        </Button>
+        <Link to="/" className={buttonClasses({ variant: 'outline' })}>Back</Link>
       </div>
     )
   }
@@ -44,9 +42,7 @@ export default function JobDetailPage() {
           <h2 className="mb-2 text-sm font-medium">Job Description</h2>
           <pre className="whitespace-pre-wrap rounded-md border bg-muted/30 p-3 text-sm">{job.jobText}</pre>
         </div>
-        <Button asChild variant="outline">
-          <Link to="/">Back</Link>
-        </Button>
+        <Link to="/" className={buttonClasses({ variant: 'outline' })}>Back</Link>
       </CardContent>
     </Card>
   )

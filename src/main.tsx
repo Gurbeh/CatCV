@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider, Outlet, useLocation } from 'react-router-dom'
 import './index.css'
-import { Toaster } from 'sonner'
+import { Toaster } from '@/components/ui/sonner'
 import LoginPage from './app/routes/login'
 import HomePage from './app/routes/home'
 import NewJobPage from './app/routes/jobs/new'
@@ -44,4 +44,3 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <RouterProvider router={router} />
   </React.StrictMode>,
 )
-

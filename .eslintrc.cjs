@@ -27,6 +27,25 @@ module.exports = {
     'react/prop-types': 'off',
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
   },
+  overrides: [
+    {
+      files: ['src/**/*.{ts,tsx}'],
+      excludedFiles: ['src/components/ui/**/*.{ts,tsx}'],
+      rules: {
+        'no-restricted-imports': [
+          'error',
+          {
+            patterns: [
+              {
+                group: ['@radix-ui/react-*'],
+                message:
+                  'Import Radix UI primitives only inside src/components/ui/* wrappers. Use @/components/ui/* elsewhere.',
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
   ignorePatterns: ['dist', 'node_modules'],
 }
-
