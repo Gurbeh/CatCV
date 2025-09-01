@@ -1,0 +1,18 @@
+import { Button } from '@/components/ui/button'
+import { JobsTable } from '@/components/JobsTable'
+import { Link } from 'react-router-dom'
+
+export default function HomePage() {
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-semibold">Your Saved Applications</h1>
+        <Button asChild>
+          <Link to="/jobs/new">New Job</Link>
+        </Button>
+      </div>
+      <JobsTable />
+    </div>
+  )
+}
+
