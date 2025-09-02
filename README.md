@@ -110,6 +110,11 @@ Open http://localhost:5173 (default Vite port) after `yarn dev`.
 - AI‑powered analysis of job descriptions (wired through `ai/placeholders.ts`)
 - Search/filter, import/export, and richer detail views
 
+### 🤖 Agent Rules
+This project defines agent-specific workflows in [AGENT.md](./AGENT.md).
+- Global rules are defined in the root file.
+- Local rules may exist in subfolders, and must be followed in addition to global rules.
+
 ## License
 Proprietary or as defined by the repository owner.
 
