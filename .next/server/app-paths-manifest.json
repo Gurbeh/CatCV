@@ -2,7 +2,7 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/(auth)/login/page": "app/(auth)/login/page.js",
   "/(app)/dashboard/page": "app/(app)/dashboard/page.js",
-  "/(app)/page": "app/(app)/page.js",
+  "/(app)/jobs/[id]/page": "app/(app)/jobs/[id]/page.js",
   "/(app)/jobs/new/page": "app/(app)/jobs/new/page.js",
-  "/(app)/jobs/[id]/page": "app/(app)/jobs/[id]/page.js"
+  "/(app)/page": "app/(app)/page.js"
 }

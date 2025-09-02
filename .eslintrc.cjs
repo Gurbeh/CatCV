@@ -29,8 +29,8 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['src/**/*.{ts,tsx}'],
-      excludedFiles: ['src/components/ui/**/*.{ts,tsx}'],
+      files: ['**/*.{ts,tsx}'],
+      excludedFiles: ['components/ui/**/*.{ts,tsx}'],
       rules: {
         'no-restricted-imports': [
           'error',
@@ -39,7 +39,7 @@ module.exports = {
               {
                 group: ['@radix-ui/react-*'],
                 message:
-                  'Import Radix UI primitives only inside src/components/ui/* wrappers. Use @/components/ui/* elsewhere.',
+                  'Import Radix UI primitives only inside components/ui/* wrappers. Use @/components/ui/* elsewhere.',
               },
             ],
           },

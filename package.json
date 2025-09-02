@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write \"{app,src}/**/*.{ts,tsx,css,md}\""
+    "format": "prettier --write \"{app,components,lib,ai}/**/*.{ts,tsx,css,md}\""
   },
   "dependencies": {
     "@vercel/speed-insights": "^1.2.0",
