@@ -29,7 +29,7 @@ export function AppHeader() {
           <span className="sr-only">CatCV</span>
         </Link>
         <nav className="relative flex items-center gap-2">
-          <NavLink to="/" className={({ isActive }) => (isActive ? 'underline' : 'hover:underline')}>Home</NavLink>
+          <NavLink to="/dashboard" className={({ isActive }) => (isActive ? 'underline' : 'hover:underline')}>Dashboard</NavLink>
           <div ref={menuRef} className="relative">
             <Button variant="ghost" size="icon" aria-label="Account menu" aria-expanded={open} aria-haspopup="menu" onClick={() => setOpen((v) => !v)}>
               <User className="h-4 w-4" />

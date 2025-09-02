@@ -5,6 +5,7 @@ import './index.css'
 import { Toaster } from '@/components/ui/sonner'
 import LoginPage from './app/routes/login'
 import HomePage from './app/routes/home'
+import DashboardPage from './app/routes/dashboard'
 import NewJobPage from './app/routes/jobs/new'
 import JobDetailPage from './app/routes/jobs/id'
 import { AppHeader } from './components/AppHeader'
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <HomePage /> },
+      { path: 'dashboard', element: <DashboardPage /> },
       { path: 'login', element: <LoginPage /> },
       { path: 'jobs/new', element: <NewJobPage /> },
       { path: 'jobs/:id', element: <JobDetailPage /> },
