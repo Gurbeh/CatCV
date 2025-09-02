@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom'
+"use client"
+
+import Link from 'next/link'
 import { buttonClasses } from '@/components/ui/button'
 import { Marquee } from '@/components/ui/marquee'
 import { Highlighter } from '@/components/ui/highlighter'
@@ -16,11 +18,11 @@ export default function HomePage() {
         Save opportunities, follow up with ease and stay organized while searching for your next role.
       </p>
       <div className="flex gap-4">
-        <Link to="/dashboard" className={buttonClasses({ size: 'lg' })}>
+        <Link href="/dashboard" className={buttonClasses({ size: 'lg' })}>
           Login
         </Link>
         <Link
-          to="/dashboard"
+          href="/dashboard"
           className={buttonClasses({ variant: 'secondary', size: 'lg' })}
         >
           Sign Up

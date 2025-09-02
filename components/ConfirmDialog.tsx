@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from '@/components/ui/button'
 import * as React from 'react'
 import { cn } from '@/lib/utils'
@@ -11,8 +13,8 @@ interface ConfirmDialogProps {
 }
 
 export function ConfirmDialog({
-  title = 'Are you sure?'
-  , description = 'This action cannot be undone.',
+  title = 'Are you sure?',
+  description = 'This action cannot be undone.',
   confirmText = 'Confirm',
   trigger,
   onConfirm,

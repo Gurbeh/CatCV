@@ -1,9 +1,11 @@
+"use client"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
-  const navigate = useNavigate()
+  const router = useRouter()
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-lg items-center justify-center">
       <Card className="w-full">
@@ -15,7 +17,7 @@ export default function LoginPage() {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col gap-4">
-            <Button onClick={() => navigate('/')}>Continue</Button>
+            <Button onClick={() => router.push('/')}>Continue</Button>
             <p className="text-center text-xs text-muted-foreground">Authentication will be added later.</p>
           </div>
         </CardContent>
