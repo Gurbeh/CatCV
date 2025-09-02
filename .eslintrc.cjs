@@ -8,7 +8,6 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
     'next/core-web-vitals',
   ],
   parser: '@typescript-eslint/parser',
@@ -17,7 +16,7 @@ module.exports = {
     sourceType: 'module',
     ecmaFeatures: { jsx: true },
   },
-  plugins: ['react', '@typescript-eslint', 'react-hooks'],
+  plugins: ['react', '@typescript-eslint'],
   settings: {
     react: {
       version: 'detect',

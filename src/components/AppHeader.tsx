@@ -1,5 +1,6 @@
 "use client"
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { User } from 'lucide-react'
@@ -28,7 +29,7 @@ export function AppHeader() {
     <header className="w-full border-b">
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
         <Link href="/" className="flex items-center gap-2 hover:opacity-90" aria-label="CatCV Home">
-          <img src="/logo.png" alt="CatCV" className="h-10 w-auto" />
+          <Image src="/logo.png" alt="CatCV" width={1032} height={725} className="h-10 w-auto" priority />
           <span className="sr-only">CatCV</span>
         </Link>
         <nav className="relative flex items-center gap-2">
