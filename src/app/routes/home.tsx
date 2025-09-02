@@ -9,7 +9,7 @@ export default function HomePage() {
     <div className="flex flex-col items-center gap-8 py-20 text-center">
       <img src="/logo.png" alt="CatCV" className="h-24 w-auto" />
       <h1 className="text-4xl font-bold leading-tight">
-        Track your <Highlighter>job hunt</Highlighter> with{' '}
+        Track your <Highlighter action="underline">job hunt</Highlighter> with{' '}
         <Highlighter variant="green">CatCV</Highlighter>
       </h1>
       <p className="max-w-xl text-muted-foreground">
