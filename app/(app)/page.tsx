@@ -8,7 +8,7 @@ export default function HomePage() {
   const fakeCompanies = ['Acme Corp', 'Globex', 'Initech', 'Umbrella', 'Soylent', 'Wonka Industries']
   return (
     <div className="flex flex-col items-center gap-8 py-20 text-center">
-      <Image src="/logo.png" alt="CatCV" width={1032} height={725} className="h-24 w-auto" priority />
+      <Image src="/android-chrome-512x512.png" alt="CatCV" width={1032} height={725} className="h-24 w-auto" priority />
       <h1 className="text-4xl font-bold leading-tight">
         Track your <Highlighter action="underline">job hunt</Highlighter> with{' '}
         <Highlighter variant="green">CatCV</Highlighter>
