@@ -1,3 +1,6 @@
+"use client"
+
+import Link from 'next/link'
 import { Button, buttonClasses } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
@@ -6,7 +9,6 @@ import { formatDate } from '@/lib/date'
 import { ConfirmDialog } from '@/components/ConfirmDialog'
 import { ExternalLink, Link as LinkIcon, Trash2 } from 'lucide-react'
 import { toast } from '@/components/ui/sonner'
-import { Link } from 'react-router-dom'
 
 export function JobsTable() {
   const { jobs, removeJob } = useJobs()
@@ -57,7 +59,13 @@ export function JobsTable() {
             </TableCell>
             <TableCell className="text-right">
               <div className="flex justify-end gap-2">
-                <Link to={`/jobs/${job.id}`} aria-label="Open details" className={buttonClasses({ variant: 'outline', size: 'sm' })}>Open</Link>
+                <Link
+                  href={`/jobs/${job.id}`}
+                  aria-label="Open details"
+                  className={buttonClasses({ variant: 'outline', size: 'sm' })}
+                >
+                  Open
+                </Link>
                 <Button
                   variant="outline"
                   size="sm"

@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react'
 import { z } from 'zod'
 import { Input } from '@/components/ui/input'

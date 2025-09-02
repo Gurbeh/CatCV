@@ -18,21 +18,24 @@ No backend or AI is required in this version. The codebase is production‑ready
 - Class‑based dark mode (Tailwind) and accessible UI components
 
 ## Tech Stack
-- React 18 + TypeScript + Vite 5
+- Next.js 14 (React 18 + TypeScript)
 - Tailwind CSS (class dark mode) + shadcn‑style UI primitives
 - Radix UI: Dialog, Dropdown Menu
 - Sonner for toasts; lucide‑react icons
-- React Router v6 for routing
+- Next.js App Router for routing
 - zod for data validation
 - ESLint + Prettier for code quality
 
 ## App Structure
 ```
 src/
-  main.tsx                # Router + layout + providers
-  index.css               # Tailwind base + theme tokens
+  app/                    # Next.js App Router pages
+    globals.css           # Tailwind base + theme tokens
+    page.tsx              # Landing page
+    login/page.tsx        # /login
+    dashboard/page.tsx    # /dashboard
+    jobs/                 # nested job routes
   ai/placeholders.ts      # Future AI stub (no‑op)
-  app/routes/             # Pages: /login, /, /jobs/new, /jobs/:id
   components/             # UI pieces (Header, Table, Form, Dialog, primitives)
   lib/                    # Types, store, storage, utils, date format
 public/
@@ -70,29 +73,26 @@ Storage details:
 - Respects `prefers-reduced-motion`
 
 ## Getting Started
-Prerequisites: Node.js 18+ and Yarn (or npm/pnpm).
+Prerequisites: Node.js 18+
 
 ```bash
 # Install dependencies
-yarn install
+npm install
 
 # Start dev server
-yarn dev
+npm run dev
 
 # Lint
-yarn lint
+npm run lint
 
 # Format code
-yarn format
+npm run format
 
 # Build for production
-yarn build
-
-# Preview production build
-yarn preview
+npm run build
 ```
 
-Open http://localhost:5173 (default Vite port) after `yarn dev`.
+Open http://localhost:3000 after `npm run dev`.
 
 ## Usage Walkthrough
 1) Navigate to `/login` and click Continue to enter the app.
@@ -104,7 +104,7 @@ Open http://localhost:5173 (default Vite port) after `yarn dev`.
 ## Design & Theming
 - Tailwind provides theme tokens via CSS variables; dark mode uses the `class` strategy.
 - UI primitives (Button, Input, Textarea, Card, Dialog, Badge, Table) are consistent and accessible.
-- Header shows your logo from `public/logo.png`; favicons are defined in `index.html`.
+- Header shows your logo from `public/logo.png`; favicons live in `public/`.
 
 ## Roadmap
 - AI‑powered analysis of job descriptions (wired through `ai/placeholders.ts`)

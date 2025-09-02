@@ -1,9 +1,13 @@
-import { Link, NavLink } from 'react-router-dom'
+"use client"
+
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { User } from 'lucide-react'
 import * as React from 'react'
 
 export function AppHeader() {
+  const pathname = usePathname()
   const [open, setOpen] = React.useState(false)
   const menuRef = React.useRef<HTMLDivElement | null>(null)
   React.useEffect(() => {
@@ -24,12 +28,17 @@ export function AppHeader() {
   return (
     <header className="w-full border-b">
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
-        <Link to="/" className="flex items-center gap-2 hover:opacity-90" aria-label="CatCV Home">
+        <Link href="/" className="flex items-center gap-2 hover:opacity-90" aria-label="CatCV Home">
           <img src="/logo.png" alt="CatCV" className="h-10 w-auto" />
           <span className="sr-only">CatCV</span>
         </Link>
         <nav className="relative flex items-center gap-2">
-          <NavLink to="/dashboard" className={({ isActive }) => (isActive ? 'underline' : 'hover:underline')}>Dashboard</NavLink>
+          <Link
+            href="/dashboard"
+            className={pathname === '/dashboard' ? 'underline' : 'hover:underline'}
+          >
+            Dashboard
+          </Link>
           <div ref={menuRef} className="relative">
             <Button variant="ghost" size="icon" aria-label="Account menu" aria-expanded={open} aria-haspopup="menu" onClick={() => setOpen((v) => !v)}>
               <User className="h-4 w-4" />

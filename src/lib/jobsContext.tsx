@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react'
 import type { Job, JobInput, JobId } from './types'
 import * as store from './jobsStore'
