@@ -114,6 +114,8 @@ Open http://localhost:5173 (default Vite port) after `yarn dev`.
 This project defines agent-specific workflows in [AGENT.md](./AGENT.md).
 - Global rules are defined in the root file.
 - Local rules may exist in subfolders, and must be followed in addition to global rules.
+- All AI agents (Codex, etc.) **must read and follow these rules** before editing code or files.
+
 
 ## License
 Proprietary or as defined by the repository owner.
