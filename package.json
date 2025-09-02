@@ -11,9 +11,10 @@
     "format": "prettier --write \"{app,src}/**/*.{ts,tsx,css,md}\""
   },
   "dependencies": {
-    "next": "15.5.2",
+    "@vercel/speed-insights": "^1.2.0",
     "lucide-react": "^0.441.0",
     "nanoid": "^5.0.7",
+    "next": "15.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sonner": "^1.5.0",
@@ -26,8 +27,8 @@
     "@typescript-eslint/eslint-plugin": "^7.7.0",
     "@typescript-eslint/parser": "^7.7.0",
     "autoprefixer": "^10.4.19",
-    "eslint-config-next": "^15.0.0",
     "eslint": "^8.57.0",
+    "eslint-config-next": "^15.0.0",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "postcss": "^8.4.38",
