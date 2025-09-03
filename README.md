@@ -116,6 +116,16 @@ This project defines agent-specific workflows in [AGENT.md](./AGENT.md).
 - Local rules may exist in subfolders, and must be followed in addition to global rules.
 - All AI agents (Codex, etc.) **must read and follow these rules** before editing code or files.
 
+## Repository Visibility
+This repository is now public. Please avoid adding secrets or sensitive data. If you discover any exposed credentials or security issues, open a security-focused issue or contact the maintainers.
+
+## Contributing
+We welcome contributions! If you’d like to fix a bug, improve docs, or propose a feature:
+- Fork the repo and create a feature branch.
+- Make your changes with clear commit messages.
+- Open a pull request describing the change and motivation.
+
+Check open issues for ideas to get started. Be respectful and follow a constructive, collaborative tone.
 
 ## License
 Proprietary or as defined by the repository owner.
