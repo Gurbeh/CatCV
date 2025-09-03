@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { User } from 'lucide-react'
+import { User, Github } from 'lucide-react'
 import * as React from 'react'
 
 export function AppHeader() {
@@ -32,8 +32,17 @@ export function AppHeader() {
           <Image src="/logo.png" alt="CatCV" width={1032} height={725} className="h-10 w-auto" priority />
           <span className="sr-only">CatCV</span>
         </Link>
-        <nav className="relative flex items-center gap-2">
+        <nav className="relative flex items-center gap-4">
           <Link href="/dashboard" className={pathname === '/dashboard' ? 'underline' : 'hover:underline'}>Dashboard</Link>
+          <Link 
+            href="https://github.com/Gurbeh/CatCV" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="flex items-center justify-center p-2 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+            aria-label="View source code on GitHub"
+          >
+            <Github className="h-4 w-4" />
+          </Link>
           <div ref={menuRef} className="relative">
             <Button variant="ghost" size="icon" aria-label="Account menu" aria-expanded={open} aria-haspopup="menu" onClick={() => setOpen((v) => !v)}>
               <User className="h-4 w-4" />
