@@ -26,7 +26,7 @@ export function AppHeader() {
     }
   }, [open])
   return (
-    <header className="w-full border-b">
+    <header className="w-full border-b test">
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
         <Link href="/" className="flex items-center gap-2 hover:opacity-90" aria-label="CatCV Home">
           <Image src="/logo.png" alt="CatCV" width={1032} height={725} className="h-10 w-auto" priority />
