@@ -4,7 +4,7 @@ You are the coding agent for the project â€œAI-tailored Resume & Cover Lettersâ€
 - Tailwind + shadcn/ui, Magic UI
 - Vercel AI SDK with OpenAI (default model: gpt-5-mini; optional: gpt-5)
 - JSON Resume (strict `ajv` validation)
-- PDF via `@react-pdf/renderer`; no Puppeteer required
+- PDF via JSON Resume export tools (`resume-cli`);
 
 STYLE & PRIORITIES
 - Be terse. Answer first. Provide code over prose.

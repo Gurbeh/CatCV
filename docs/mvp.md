@@ -32,7 +32,7 @@
 - Auth via Supabase + simple dashboard
 - Base resume upload/build (JSON Resume v1) with strict AJV validation
 - JD input + site field; generate tailored JSON (Vercel AI SDK with gpt-5-mini) and cover letter
-- Minimal PDF exporter (@react-pdf/renderer) with a clean default template
+- PDF export via JSON Resume tools (`resume-cli`)
 - Storage of JSON/PDF/cover letter; download links
 - Application tracker with status filter
 - Basic rate limiting and error handling
