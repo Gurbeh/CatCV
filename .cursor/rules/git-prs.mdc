@@ -8,6 +8,8 @@ Title: Git & Pull Requests
 - **Branches**: Feature branches per task. Avoid long-lived branches.
 - **PRs**: Small, single-purpose. Include rationale and risks when touching auth/ai/db.
 - **Tests**: PRs must include or update tests for changed behavior.
+// Build must pass locally before opening PR
+- **Build**: Local `pnpm build` must pass; include note in PR template.
 - **Diffs**: Minimal edits. Do not reformat.
 - **Reviews**: Request specific feedback areas. Respond with follow-up edits.
 - **Migrations**: Separate PR if large. Include rollout notes.
@@ -24,6 +26,9 @@ Template
 ### Tests
 - Unit: ...
 - E2E/Component: ...
+
+### Build
+- Local build passed: yes/no (include error summary if no)
 
 ### Risks
 - ...

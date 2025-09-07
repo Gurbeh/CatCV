@@ -11,6 +11,11 @@ Title: Testing & Quality
 - **CI**: Cache deps; run lints, unit, then e2e (smoke) per PR.
 - **Perf tests**: Track TTFB and hydration for key pages periodically.
 
+Build validation
+
+- Each task must pass a local build before PR: `pnpm build` (or `flox activate -- bash -c "pnpm build"`).
+- Fix type errors and edge runtime issues surfaced by the build.
+
 Per-task requirement
 
 - Every task must include adequate tests: unit for logic, and e2e or component tests for user-facing flows.
