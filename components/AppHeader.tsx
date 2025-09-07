@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { User } from 'lucide-react'
 import * as React from 'react'
+import { signOutAction } from '@/lib/supabase/server'
 
 export function AppHeader() {
   const pathname = usePathname()
@@ -42,7 +43,16 @@ export function AppHeader() {
               <div role="menu" className="absolute right-0 z-50 mt-2 w-48 rounded-md border bg-popover p-1 text-popover-foreground shadow-md">
                 <div className="cursor-default select-none rounded-sm px-2 py-1.5 text-sm opacity-60">Signed in as demo</div>
                 <div className="-mx-1 my-1 h-px bg-border" />
-                <div className="cursor-default select-none rounded-sm px-2 py-1.5 text-sm opacity-60">Sign out (coming soon)</div>
+                <form
+                  action={async () => {
+                    await signOutAction()
+                    window.location.href = '/login'
+                  }}
+                >
+                  <button className="w-full rounded-sm px-2 py-1.5 text-left text-sm hover:bg-accent">
+                    Sign out
+                  </button>
+                </form>
               </div>
             ) : null}
           </div>

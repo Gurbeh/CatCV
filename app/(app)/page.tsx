@@ -17,10 +17,10 @@ export default function HomePage() {
         Save opportunities, follow up with ease and stay organized while searching for your next role.
       </p>
       <div className="flex gap-4">
-        <Link href="/dashboard" className={buttonClasses({ size: 'lg' })}>
+        <Link href="/login" className={buttonClasses({ size: 'lg' })}>
           Login
         </Link>
-        <Link href="/dashboard" className={buttonClasses({ variant: 'secondary', size: 'lg' })}>
+        <Link href="/sign-up" className={buttonClasses({ variant: 'secondary', size: 'lg' })}>
           Sign Up
         </Link>
       </div>
