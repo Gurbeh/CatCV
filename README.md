@@ -131,10 +131,10 @@ Open http://localhost:5173 (default Vite port) after `yarn dev`.
 - Search/filter, import/export, and richer detail views
 
 ### 🤖 Agent Rules
-This project defines agent-specific workflows in [AGENT.md](./AGENT.md).
-- Global rules are defined in the root file.
-- Local rules may exist in subfolders, and must be followed in addition to global rules.
-- All AI agents (Codex, etc.) **must read and follow these rules** before editing code or files.
+This project defines agent workflows in [AGENTS.md](./AGENTS.md).
+- Canonical, detailed rules live under `/.cursor/rules` (start with `index.mdc`).
+- All AI agents (Codex, etc.) must read those rules before editing files.
+- Local rules may exist in subfolders in addition to the global rules.
 
 
 ## License
