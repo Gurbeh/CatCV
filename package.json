@@ -8,13 +8,22 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write \"{app,components,lib,ai}/**/*.{ts,tsx,css,md}\""
+    "format": "prettier --write \"{app,components,lib,ai}/**/*.{ts,tsx,css,md}\"",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.7.0",
+    "@supabase/supabase-js": "^2.57.2",
     "@vercel/speed-insights": "^1.2.0",
+    "drizzle-kit": "^0.31.4",
+    "drizzle-orm": "^0.44.5",
     "lucide-react": "^0.441.0",
     "nanoid": "^5.0.7",
     "next": "15.5.2",
+    "postgres": "^3.4.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sonner": "^1.5.0",
