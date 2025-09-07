@@ -6,10 +6,9 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuth } from '@/lib/state/authContext'
-import Link from 'next/link'
 
-export default function LoginPage() {
-  const { signIn } = useAuth()
+export default function SignUpPage() {
+  const { signUp } = useAuth()
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
   const [loading, setLoading] = React.useState(false)
@@ -18,7 +17,7 @@ export default function LoginPage() {
     e.preventDefault()
     setLoading(true)
     try {
-      await signIn({ email, password })
+      await signUp({ email, password })
     } finally {
       setLoading(false)
     }
@@ -28,8 +27,8 @@ export default function LoginPage() {
     <div className="mx-auto flex min-h-[70vh] max-w-lg items-center justify-center">
       <Card className="w-full">
         <CardHeader>
-          <CardTitle>Sign in</CardTitle>
-          <CardDescription>Access your CatCV dashboard.</CardDescription>
+          <CardTitle>Create your account</CardTitle>
+          <CardDescription>Use your email and a strong password.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={onSubmit} className="flex flex-col gap-4">
@@ -39,10 +38,9 @@ export default function LoginPage() {
             </div>
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
-              <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="current-password"/>
+              <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required autoComplete="new-password"/>
             </div>
-            <Button type="submit" disabled={loading}>{loading ? 'Signing in...' : 'Sign in'}</Button>
-            <div className="text-sm text-muted-foreground">No account? <Link href="/sign-up" className="underline">Create one</Link></div>
+            <Button type="submit" disabled={loading}>{loading ? 'Creating...' : 'Create account'}</Button>
           </form>
         </CardContent>
       </Card>
