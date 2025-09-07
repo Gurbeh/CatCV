@@ -5,11 +5,13 @@ import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { User } from 'lucide-react'
 import * as React from 'react'
+import { useAuth } from '@/lib/state/authContext'
 
 export function AppHeader() {
   const pathname = usePathname()
   const [open, setOpen] = React.useState(false)
   const menuRef = React.useRef<HTMLDivElement | null>(null)
+  const { user, signOut } = useAuth()
   React.useEffect(() => {
     function onDocClick(e: MouseEvent) {
       if (!menuRef.current) return
@@ -40,9 +42,13 @@ export function AppHeader() {
             </Button>
             {open ? (
               <div role="menu" className="absolute right-0 z-50 mt-2 w-48 rounded-md border bg-popover p-1 text-popover-foreground shadow-md">
-                <div className="cursor-default select-none rounded-sm px-2 py-1.5 text-sm opacity-60">Signed in as demo</div>
+                <div className="cursor-default select-none rounded-sm px-2 py-1.5 text-sm opacity-60">{user ? `Signed in as ${user.email}` : 'Not signed in'}</div>
                 <div className="-mx-1 my-1 h-px bg-border" />
-                <div className="cursor-default select-none rounded-sm px-2 py-1.5 text-sm opacity-60">Sign out (coming soon)</div>
+                {user ? (
+                  <button onClick={() => { signOut(); setOpen(false) }} className="w-full text-left rounded-sm px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground">Sign out</button>
+                ) : (
+                  <a href="/login" className="block rounded-sm px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground">Sign in</a>
+                )}
               </div>
             ) : null}
           </div>
