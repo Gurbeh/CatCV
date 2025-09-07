@@ -1,9 +1,6 @@
 ---
-description:
-globs:
-alwaysApply: true
+alwaysApply: false
 ---
-
 docs/rules/cursor-rules.md
 # Cursor Workspace Rules
 
@@ -65,8 +62,13 @@ docs/rules/cursor-rules.md
 - Place PDF generation in a Node runtime route/handler when using Chromium.
 
 ## File/Folder Conventions
+- Feature-first + atomic design:
+  - `app/(features)/<feature>/...` for routes, UI, and hooks of a feature.
+  - `components/ui/atoms|molecules|organisms|layouts` for reusable building blocks.
+  - Feature code may import atoms/molecules, not vice versa.
 - `lib/ai/*`: model selection, prompts, and typed outputs.
 - `lib/db/*`: drizzle schema, migrations config.
+- `lib/state/*`: app-wide Zustand stores.
 - `app/(auth)`, `app/(dashboard)`, `app/api/*`: route groups for clarity.
 - `types/json-resume.ts`: shared types aligned with JSON Resume spec.
 
