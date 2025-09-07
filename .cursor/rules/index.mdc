@@ -15,6 +15,10 @@ Title: Next.js Fullstack Best Practices (Index)
 - [Workflows & Commands](./08-workflows-commands.mdc) — shell, env, scripts, CI.
 - [Git & Pull Requests](./09-git-prs.mdc) — commits, diffs, reviews, templates.
 
+Title: Governance
+
+- [Governance](./governance.mdc) — rule change approvals.
+
 Title: Next.js Fullstack Best Practices (Index)
 
 - [Foundations](./00-foundations.mdc) — style, edits, types, validation, security.
@@ -27,4 +31,8 @@ Title: Next.js Fullstack Best Practices (Index)
 - [Performance & Security](./07-performance-security.mdc) — cache, bundles, headers, RLS.
 - [Workflows & Commands](./08-workflows-commands.mdc) — shell, env, scripts, CI.
 - [Git & Pull Requests](./09-git-prs.mdc) — commits, diffs, reviews, templates.
+
+Title: Governance
+
+- [Governance](./governance.mdc) — rule change approvals.
 
