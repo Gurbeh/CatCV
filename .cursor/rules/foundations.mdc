@@ -1,0 +1,72 @@
+---
+alwaysApply: false
+---
+
+Title: Foundations
+
+- **Style**: Be terse. Answer first. Prefer code over prose.
+- **Edits**: Minimal diffs. Preserve existing indentation. Do not reformat unrelated code.
+- **Naming**: Meaningful, descriptive. Avoid 1–2 char identifiers.
+- **Types**: TypeScript strict. Annotate public APIs; avoid `any` and unsafe casts.
+- **Control flow**: Early returns, handle errors first, avoid deep nesting.
+- **Comments**: Only for why. No inline noise. Keep short.
+- **Runtimes**: Prefer RSC. Use `"use client"` only when necessary.
+- **Validation**: Use `zod` at boundaries (forms, server actions, API, AI IO).
+- **Security**: Never commit secrets. Load from `.env.local`. Sanitize user text.
+- **Observability**: Optional `@sentry/nextjs`. Add when useful; keep overhead low.
+- **Rate limits**: Use `@upstash/ratelimit` on AI and user-facing POST endpoints.
+- **Streaming**: Stream when useful. Avoid buffering large responses.
+- **Accessibility**: ARIA via shadcn/Radix primitives. Keyboard-first.
+- **Internationalization**: Keep UI copy centralized; avoid hardcoded strings in logic.
+
+Snippets
+
+```ts
+// Input validation at boundary
+const schema = z.object({ id: z.string().uuid() })
+export async function action(prev: unknown, formData: FormData) {
+  const parsed = schema.safeParse({ id: formData.get("id") })
+  if (!parsed.success) return { error: "Invalid input" }
+  // ...
+}
+```
+
+```ts
+// Avoid mutating shared objects; clone then update
+const updated = { ...existing, name: newName }
+```
+
+Title: Foundations
+
+- **Style**: Be terse. Answer first. Prefer code over prose.
+- **Edits**: Minimal diffs. Preserve existing indentation. Do not reformat unrelated code.
+- **Naming**: Meaningful, descriptive. Avoid 1–2 char identifiers.
+- **Types**: TypeScript strict. Annotate public APIs; avoid `any` and unsafe casts.
+- **Control flow**: Early returns, handle errors first, avoid deep nesting.
+- **Comments**: Only for why. No inline noise. Keep short.
+- **Runtimes**: Prefer RSC. Use `"use client"` only when necessary.
+- **Validation**: Use `zod` at boundaries (forms, server actions, API, AI IO).
+- **Security**: Never commit secrets. Load from `.env.local`. Sanitize user text.
+- **Observability**: Optional `@sentry/nextjs`. Add when useful; keep overhead low.
+- **Rate limits**: Use `@upstash/ratelimit` on AI and user-facing POST endpoints.
+- **Streaming**: Stream when useful. Avoid buffering large responses.
+- **Accessibility**: ARIA via shadcn/Radix primitives. Keyboard-first.
+- **Internationalization**: Keep UI copy centralized; avoid hardcoded strings in logic.
+
+Snippets
+
+```ts
+// Input validation at boundary
+const schema = z.object({ id: z.string().uuid() })
+export async function action(prev: unknown, formData: FormData) {
+  const parsed = schema.safeParse({ id: formData.get("id") })
+  if (!parsed.success) return { error: "Invalid input" }
+  // ...
+}
+```
+
+```ts
+// Avoid mutating shared objects; clone then update
+const updated = { ...existing, name: newName }
+```
+

@@ -1,0 +1,95 @@
+---
+alwaysApply: false
+---
+
+Title: UI (Tailwind + shadcn/ui + Magic UI)
+
+- **Tailwind**: Utility-first. Extract components when patterns repeat. Avoid deep custom CSS.
+- **Design tokens**: Use CSS vars and Tailwind config. Respect dark mode.
+- **shadcn/ui**: Compose primitives; keep accessibility defaults. Avoid override hell.
+- **State**: Keep local UI state in client components; lift only when needed.
+- **Forms**: `react-hook-form` + `zodResolver`. Inline errors, accessible labels.
+- **Icons**: `lucide-react`. Keep consistent size and stroke.
+- **Animations**: Prefer lightweight transitions. Avoid layout thrash.
+- **Markdown**: Sanitize if rendering user input.
+
+State libraries
+
+- Prefer React built-ins (`useState`, `useReducer`, context) first.
+- Use Zustand for app-wide ephemeral UI; keep stores minimal and typed.
+- Avoid Redux unless devtools/middleware are required across many modules.
+- Server data should come from RSC; if client cache is needed, scope SWR narrowly.
+
+Zustand pattern
+
+- Store lives in `lib/state/uiStore.ts`.
+- Consume via selectors to avoid re-renders.
+
+```ts
+// lib/state/uiStore.ts
+export const selectSidebarOpen = (s: UiStore) => s.sidebarOpen
+export const selectActions = (s: UiStore) => ({ toggleSidebar: s.toggleSidebar })
+```
+
+```tsx
+// usage in client component
+const open = useUiStore(selectSidebarOpen)
+const { toggleSidebar } = useUiStore(selectActions)
+```
+
+Form Template
+
+```tsx
+<Form {...form}>
+  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+    <FormField name="title" control={form.control} render={({ field }) => (
+      <FormItem>
+        <FormLabel>Title</FormLabel>
+        <FormControl>
+          <Input {...field} />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    )} />
+    <Button type="submit">Save</Button>
+  </form>
+  </Form>
+```
+
+Title: UI (Tailwind + shadcn/ui + Magic UI)
+
+- **Tailwind**: Utility-first. Extract components when patterns repeat. Avoid deep custom CSS.
+- **Design tokens**: Use CSS vars and Tailwind config. Respect dark mode.
+- **shadcn/ui**: Compose primitives; keep accessibility defaults. Avoid override hell.
+- **State**: Keep local UI state in client components; lift only when needed.
+- **Forms**: `react-hook-form` + `zodResolver`. Inline errors, accessible labels.
+- **Icons**: `lucide-react`. Keep consistent size and stroke.
+- **Animations**: Prefer lightweight transitions. Avoid layout thrash.
+- **Markdown**: Sanitize if rendering user input.
+
+State libraries
+
+- Prefer React built-ins (`useState`, `useReducer`, context) first.
+- Use Zustand for app-wide ephemeral UI; keep stores minimal and typed.
+- Avoid Redux unless devtools/middleware are required across many modules.
+- Server data should come from RSC; if client cache is needed, scope SWR narrowly.
+
+Form Template
+
+```tsx
+<Form {...form}>
+  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+    <FormField name="title" control={form.control} render={({ field }) => (
+      <FormItem>
+        <FormLabel>Title</FormLabel>
+        <FormControl>
+          <Input {...field} />
+        </FormControl>
+        <FormMessage />
+      </FormItem>
+    )} />
+    <Button type="submit">Save</Button>
+  </form>
+  </Form>
+```
+

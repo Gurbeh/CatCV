@@ -1,0 +1,38 @@
+---
+alwaysApply: false
+---
+
+Title: Testing & Quality
+
+- **Linters**: Run ESLint/Prettier on changed files only. Do not reformat unrelated code.
+- **Unit**: `vitest` for logic and utilities. Mock IO boundaries.
+- **E2E**: `playwright` smoke for critical flows. Keep under 5 min runtime.
+- **Types**: No `any`. Prefer precise generics. Enforce strict mode.
+- **CI**: Cache deps; run lints, unit, then e2e (smoke) per PR.
+- **Perf tests**: Track TTFB and hydration for key pages periodically.
+
+Vitest Example
+
+```ts
+test("formats date", () => {
+  expect(formatDate(new Date("2024-01-01"))).toBe("Jan 1, 2024")
+})
+```
+
+Title: Testing & Quality
+
+- **Linters**: Run ESLint/Prettier on changed files only. Do not reformat unrelated code.
+- **Unit**: `vitest` for logic and utilities. Mock IO boundaries.
+- **E2E**: `playwright` smoke for critical flows. Keep under 5 min runtime.
+- **Types**: No `any`. Prefer precise generics. Enforce strict mode.
+- **CI**: Cache deps; run lints, unit, then e2e (smoke) per PR.
+- **Perf tests**: Track TTFB and hydration for key pages periodically.
+
+Vitest Example
+
+```ts
+test("formats date", () => {
+  expect(formatDate(new Date("2024-01-01"))).toBe("Jan 1, 2024")
+})
+```
+

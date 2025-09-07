@@ -1,0 +1,56 @@
+---
+alwaysApply: false
+---
+
+Title: Database (Supabase + Drizzle)
+
+- **RLS**: Always on. Write explicit policies in migrations. Never bypass.
+- **Migrations**: Drizzle only. No manual schema drift. Commit SQL + journal.
+- **Schemas**: Centralize in `lib/db/schema.ts`. Export typed objects.
+- **Queries**: Use typed schema imports. Avoid raw SQL unless needed (then comment why).
+- **JSON**: Keep tight Zod/TS types. Validate on input and before persist.
+- **Transactions**: Use when multiple related mutations. Fail fast; return typed results.
+- **Supabase Client**: Server-side via service or RLS-bound client; never expose keys.
+- **Indexes**: Add for frequent filters/orderBy. Keep migration notes.
+- **Seeding**: Separate idempotent seed scripts. Guard for prod.
+
+Policy Example
+
+```sql
+create policy "users can read own jobs"
+on jobs for select
+using ( auth.uid() = user_id );
+```
+
+Drizzle Example
+
+```ts
+const rows = await db.select().from(jobs).where(eq(jobs.userId, userId))
+```
+
+Title: Database (Supabase + Drizzle)
+
+- **RLS**: Always on. Write explicit policies in migrations. Never bypass.
+- **Migrations**: Drizzle only. No manual schema drift. Commit SQL + journal.
+- **Schemas**: Centralize in `lib/db/schema.ts`. Export typed objects.
+- **Queries**: Use typed schema imports. Avoid raw SQL unless needed (then comment why).
+- **JSON**: Keep tight Zod/TS types. Validate on input and before persist.
+- **Transactions**: Use when multiple related mutations. Fail fast; return typed results.
+- **Supabase Client**: Server-side via service or RLS-bound client; never expose keys.
+- **Indexes**: Add for frequent filters/orderBy. Keep migration notes.
+- **Seeding**: Separate idempotent seed scripts. Guard for prod.
+
+Policy Example
+
+```sql
+create policy "users can read own jobs"
+on jobs for select
+using ( auth.uid() = user_id );
+```
+
+Drizzle Example
+
+```ts
+const rows = await db.select().from(jobs).where(eq(jobs.userId, userId))
+```
+
