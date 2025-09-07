@@ -11,6 +11,11 @@ Title: Testing & Quality
 - **CI**: Cache deps; run lints, unit, then e2e (smoke) per PR.
 - **Perf tests**: Track TTFB and hydration for key pages periodically.
 
+Per-task requirement
+
+- Every task must include adequate tests: unit for logic, and e2e or component tests for user-facing flows.
+- New code without tests is not eligible for merge unless explicitly justified.
+
 Vitest Example
 
 ```ts
@@ -27,6 +32,11 @@ Title: Testing & Quality
 - **Types**: No `any`. Prefer precise generics. Enforce strict mode.
 - **CI**: Cache deps; run lints, unit, then e2e (smoke) per PR.
 - **Perf tests**: Track TTFB and hydration for key pages periodically.
+
+Per-task requirement
+
+- Every task must include adequate tests: unit for logic, and e2e or component tests for user-facing flows.
+- New code without tests is not eligible for merge unless explicitly justified.
 
 Vitest Example
 

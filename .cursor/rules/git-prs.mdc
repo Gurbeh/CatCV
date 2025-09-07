@@ -7,6 +7,7 @@ Title: Git & Pull Requests
 - **Commits**: Small, focused. Imperative present tense. Reference issues if applicable.
 - **Branches**: Feature branches per task. Avoid long-lived branches.
 - **PRs**: Small, single-purpose. Include rationale and risks when touching auth/ai/db.
+- **Tests**: PRs must include or update tests for changed behavior.
 - **Diffs**: Minimal edits. Do not reformat.
 - **Reviews**: Request specific feedback areas. Respond with follow-up edits.
 - **Migrations**: Separate PR if large. Include rollout notes.
@@ -19,6 +20,10 @@ Template
 
 ### Why
 - ...
+
+### Tests
+- Unit: ...
+- E2E/Component: ...
 
 ### Risks
 - ...
