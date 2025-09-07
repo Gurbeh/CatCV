@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import './globals.css'
 import { Providers } from '@/providers'
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { AppHeader } from '@/components/AppHeader'
 import { getAuthSession } from '@/lib/supabase/server'
 
 export const metadata: Metadata = {
