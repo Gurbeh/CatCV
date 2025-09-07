@@ -1,12 +1,19 @@
+"use client"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
-import { signIn } from '@/lib/supabase/server'
+import { useRouter } from 'next/navigation'
+import { getBrowserSupabase } from '@/lib/supabase/client'
+import { useAuthStore } from '@/lib/authStore'
+import { signInNoRedirect } from '@/lib/supabase/server'
 
 export default function LoginPage() {
+  const router = useRouter()
   const redirectTo = '/dashboard'
+  const setUser = useAuthStore((s) => s.setUser)
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-lg items-center justify-center">
       <Card className="w-full">
@@ -15,7 +22,19 @@ export default function LoginPage() {
           <CardDescription>Use your email and password.</CardDescription>
         </CardHeader>
         <CardContent>
-          <form action={signIn} className="flex flex-col gap-4">
+          <form
+            action={async (fd) => {
+              const res = await signInNoRedirect(undefined, fd)
+              if (res?.ok) {
+                const supabase = getBrowserSupabase()
+                const { data } = await supabase.auth.getUser()
+                const u = data.user ? { id: data.user.id, email: data.user.email ?? '' } : null
+                setUser(u)
+                router.replace(String(fd.get('redirectTo') || '/dashboard'))
+              }
+            }}
+            className="flex flex-col gap-4"
+          >
             <input type="hidden" name="redirectTo" value={redirectTo} />
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>

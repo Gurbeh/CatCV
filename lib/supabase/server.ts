@@ -57,6 +57,19 @@ export async function signIn(formData: FormData) {
   await signInAction(undefined, formData)
 }
 
+// Same as signInAction but without redirect; returns status for client to handle state + navigation
+export async function signInNoRedirect(_: unknown, formData: FormData) {
+  const parsed = signInSchema.safeParse({
+    email: String(formData.get('email') ?? ''),
+    password: String(formData.get('password') ?? ''),
+  })
+  if (!parsed.success) return { ok: false, error: 'Invalid credentials' }
+  const supabase = await getServerSupabase()
+  const { error } = await supabase.auth.signInWithPassword(parsed.data)
+  if (error) return { ok: false, error: error.message }
+  return { ok: true }
+}
+
 export async function signUpAction(_: unknown, formData: FormData) {
   const parsed = signUpSchema.safeParse({
     email: String(formData.get('email') ?? ''),
@@ -78,4 +91,15 @@ export async function signOutAction() {
   const supabase = await getServerSupabase()
   await supabase.auth.signOut()
   return { ok: true }
+}
+
+// For server components to detect auth state
+export async function getAuthSession() {
+  const supabase = await getServerSupabase()
+  return supabase.auth.getSession()
+}
+
+export async function isLoggedIn() {
+  const { data } = await getAuthSession()
+  return !!data.session
 }

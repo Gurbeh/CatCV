@@ -1,21 +1,19 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { getBrowserSupabase } from '@/lib/supabase/client'
+import { useAuthStore } from '@/lib/authStore'
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter()
-  const [ready, setReady] = useState(false)
+  const isReady = useAuthStore((s) => s.isReady)
+  const isLoggedIn = useAuthStore((s) => s.isLoggedIn())
 
   useEffect(() => {
-    const supabase = getBrowserSupabase()
-    supabase.auth.getSession().then(({ data }) => {
-      if (!data.session) router.replace('/login')
-      else setReady(true)
-    })
-  }, [router])
+    if (!isReady) return
+    if (!isLoggedIn) router.replace('/login')
+  }, [isReady, isLoggedIn, router])
 
-  if (!ready) return null
+  if (!isReady || !isLoggedIn) return null
   return <>{children}</>
 }

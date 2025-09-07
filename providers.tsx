@@ -2,13 +2,18 @@
 
 import * as React from 'react'
 import { JobsProvider } from '@/lib/jobsContext'
+import { AuthProvider } from '@/components/auth/AuthProvider'
 import { Toaster } from 'sonner'
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({ children, initialUser }: { children: React.ReactNode; initialUser: { id: string; email: string } | null }) {
   return (
-    <JobsProvider>
-      {children}
+    <React.Fragment>
+      <AuthProvider initialUser={initialUser}>
+        <JobsProvider>
+          {children}
+        </JobsProvider>
+      </AuthProvider>
       <Toaster richColors closeButton position="top-right" />
-    </JobsProvider>
+    </React.Fragment>
   )
 }
