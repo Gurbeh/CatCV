@@ -1,8 +1,8 @@
-# CatCV — Job Application Assistant (Frontend)
+# CatCV — Job Application Assistant
 
-CatCV is a modern, React + TypeScript web app that helps you quickly save and revisit job opportunities. Paste a job description, add basic details, and manage a list of saved applications locally in your browser.
+CatCV is a modern, Next.js + TypeScript web app that helps you manage job applications with AI-powered resume tailoring and cover letter generation. Store resumes, job descriptions, and track application status with a secure, multi-tenant database.
 
-No backend or AI is required in this version. The codebase is production‑ready scaffolding with strong typing, consistent UI primitives, and clean data boundaries that make future AI features easy to add.
+The app features a complete database schema with Drizzle ORM, Supabase integration, and Row Level Security for secure multi-tenant data isolation.
 
 ## Features
 - Login screen with a single Continue action (no auth yet)
@@ -18,12 +18,12 @@ No backend or AI is required in this version. The codebase is production‑ready
 - Class‑based dark mode (Tailwind) and accessible UI components
 
 ## Tech Stack
-- React 18 + TypeScript + Vite 5
-- Tailwind CSS (class dark mode) + shadcn‑style UI primitives
-- Radix UI: Dialog, Dropdown Menu
-- Sonner for toasts; lucide‑react icons
-- React Router v6 for routing
-- zod for data validation
+- Next.js 15 (App Router) + TypeScript
+- Database: Supabase PostgreSQL with Drizzle ORM
+- Authentication: Supabase Auth with Row Level Security
+- UI: Tailwind CSS + shadcn/ui components
+- Icons: lucide-react
+- Validation: zod with JSON Resume schema
 - ESLint + Prettier for code quality
 
 ## App Structure
@@ -70,26 +70,46 @@ Storage details:
 - Respects `prefers-reduced-motion`
 
 ## Getting Started
-Prerequisites: Node.js 18+ and Yarn (or npm/pnpm).
 
+### Prerequisites
+- Node.js 18+
+- PostgreSQL database (Supabase recommended)
+
+### Environment Setup
+1. Copy `env.example` to `.env.local`
+2. Configure your database and Supabase credentials:
+```bash
+DATABASE_URL=postgresql://postgres:password@localhost:5432/catcv
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-public-key-here
+```
+
+### Database Setup
 ```bash
 # Install dependencies
-yarn install
+npm install
 
+# Generate and run migrations
+npm run db:generate
+npm run db:migrate
+
+# Apply Row Level Security policies (in Supabase SQL editor)
+# Copy and paste contents of lib/db/rls-policies.sql
+```
+
+### Development
+```bash
 # Start dev server
-yarn dev
+npm run dev
 
-# Lint
-yarn lint
+# Database tools
+npm run db:studio    # Open Drizzle Studio
+npm run db:push      # Push schema changes
 
-# Format code
-yarn format
-
-# Build for production
-yarn build
-
-# Preview production build
-yarn preview
+# Code quality
+npm run lint
+npm run format
 ```
 
 Open http://localhost:5173 (default Vite port) after `yarn dev`.
