@@ -1,0 +1,40 @@
+---
+alwaysApply: false
+---
+
+Title: Performance & Security
+
+- **Caching**: Use RSC caching and `revalidate` thoughtfully. Avoid accidental stale auth.
+- **Bundles**: Keep client bundles tiny. No heavy libs in client.
+- **Images**: Use Next Image. Optimize sizes and formats.
+- **Streaming**: Prefer streaming over buffering for large responses.
+- **N+1**: Batch queries or use joins. Add indexes.
+- **Secrets**: `.env.local` only. Never commit. Access via server.
+- **RLS**: Never disable. Policies explicit. Verify in tests.
+- **Headers**: Set secure headers; enforce HTTPS in prod.
+- **Input**: Validate and sanitize always. Escape output for HTML.
+
+Revalidate Example
+
+```ts
+export const revalidate = 60 // seconds
+```
+
+Title: Performance & Security
+
+- **Caching**: Use RSC caching and `revalidate` thoughtfully. Avoid accidental stale auth.
+- **Bundles**: Keep client bundles tiny. No heavy libs in client.
+- **Images**: Use Next Image. Optimize sizes and formats.
+- **Streaming**: Prefer streaming over buffering for large responses.
+- **N+1**: Batch queries or use joins. Add indexes.
+- **Secrets**: `.env.local` only. Never commit. Access via server.
+- **RLS**: Never disable. Policies explicit. Verify in tests.
+- **Headers**: Set secure headers; enforce HTTPS in prod.
+- **Input**: Validate and sanitize always. Escape output for HTML.
+
+Revalidate Example
+
+```ts
+export const revalidate = 60 // seconds
+```
+

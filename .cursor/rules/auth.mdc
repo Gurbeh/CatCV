@@ -1,0 +1,58 @@
+---
+alwaysApply: false
+---
+
+Title: Auth (Supabase)
+
+- **Session**: Use `@supabase/ssr` helpers. Hydrate minimally in client.
+- **RLS**: Enforce per table. Check `auth.uid()` in policies.
+- **Server Actions**: Fetch session, verify ownership before mutations.
+- **Tokens**: Never log. Store only ephemeral in memory where needed.
+- **Routes**: Protect server routes; avoid leaking user data in errors.
+- **Email/Providers**: Use Supabase defaults; handle error states clearly.
+
+Server-side Session
+
+```ts
+import { createClient } from "@/lib/supabase"
+export async function getSession() {
+  const supabase = createClient()
+  const { data } = await supabase.auth.getSession()
+  return data.session
+}
+```
+
+Action Guard
+
+```ts
+const session = await getSession()
+if (!session) throw new Error("Unauthorized")
+```
+
+Title: Auth (Supabase)
+
+- **Session**: Use `@supabase/ssr` helpers. Hydrate minimally in client.
+- **RLS**: Enforce per table. Check `auth.uid()` in policies.
+- **Server Actions**: Fetch session, verify ownership before mutations.
+- **Tokens**: Never log. Store only ephemeral in memory where needed.
+- **Routes**: Protect server routes; avoid leaking user data in errors.
+- **Email/Providers**: Use Supabase defaults; handle error states clearly.
+
+Server-side Session
+
+```ts
+import { createClient } from "@/lib/supabase"
+export async function getSession() {
+  const supabase = createClient()
+  const { data } = await supabase.auth.getSession()
+  return data.session
+}
+```
+
+Action Guard
+
+```ts
+const session = await getSession()
+if (!session) throw new Error("Unauthorized")
+```
+

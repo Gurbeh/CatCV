@@ -1,0 +1,53 @@
+---
+alwaysApply: false
+---
+
+Title: Testing & Quality
+
+- **Linters**: Run ESLint/Prettier on changed files only. Do not reformat unrelated code.
+- **Unit**: `vitest` for logic and utilities. Mock IO boundaries.
+- **E2E**: `playwright` smoke for critical flows. Keep under 5 min runtime.
+- **Types**: No `any`. Prefer precise generics. Enforce strict mode.
+- **CI**: Cache deps; run lints, unit, then e2e (smoke) per PR.
+- **Perf tests**: Track TTFB and hydration for key pages periodically.
+
+Build validation
+
+- Each task must pass a local build before PR: `pnpm build` (or `flox activate -- bash -c "pnpm build"`).
+- Fix type errors and edge runtime issues surfaced by the build.
+
+Per-task requirement
+
+- Every task must include adequate tests: unit for logic, and e2e or component tests for user-facing flows.
+- New code without tests is not eligible for merge unless explicitly justified.
+
+Vitest Example
+
+```ts
+test("formats date", () => {
+  expect(formatDate(new Date("2024-01-01"))).toBe("Jan 1, 2024")
+})
+```
+
+Title: Testing & Quality
+
+- **Linters**: Run ESLint/Prettier on changed files only. Do not reformat unrelated code.
+- **Unit**: `vitest` for logic and utilities. Mock IO boundaries.
+- **E2E**: `playwright` smoke for critical flows. Keep under 5 min runtime.
+- **Types**: No `any`. Prefer precise generics. Enforce strict mode.
+- **CI**: Cache deps; run lints, unit, then e2e (smoke) per PR.
+- **Perf tests**: Track TTFB and hydration for key pages periodically.
+
+Per-task requirement
+
+- Every task must include adequate tests: unit for logic, and e2e or component tests for user-facing flows.
+- New code without tests is not eligible for merge unless explicitly justified.
+
+Vitest Example
+
+```ts
+test("formats date", () => {
+  expect(formatDate(new Date("2024-01-01"))).toBe("Jan 1, 2024")
+})
+```
+

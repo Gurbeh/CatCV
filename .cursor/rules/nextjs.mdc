@@ -1,0 +1,64 @@
+---
+alwaysApply: false
+---
+
+Title: Next.js App Conventions
+
+- **Routing**: App Router with route groups. Prefer Server Components.
+- **Server Actions**: Mutations via server actions; validate with `zod`. Avoid client-only mutations.
+- **Data Fetching**: Use async RSC with caching where appropriate. Revalidate per data needs.
+- **Client Components**: Mark `"use client"` minimally; colocate hooks and event handlers.
+- **Edge vs Node**: Chromium/PDF and heavy libs → Node runtime route.
+- **Env**: Access via process env accessors; never inline secrets.
+- **PDF**: Default `@react-pdf/renderer`. For HTML parity, Node route with `puppeteer-core` + `@sparticuz/chromium`.
+- **AI SDK**: Vercel AI SDK (`ai`, `@ai-sdk/openai`). Default `gpt-5-mini`; optional `gpt-5`.
+- **Streaming**: Use `streamText` for cover letters; cache-safe headers.
+- **Layouts**: Keep `app/layout.tsx` light. Global providers in `providers.tsx`.
+- **RSC Safety**: Do not import server-only modules into client components.
+
+Server Action Template
+
+```ts
+"use server"
+import { z } from "zod"
+import { db } from "@/lib/db"
+
+const Input = z.object({ id: z.string().uuid(), title: z.string().min(1) })
+
+export async function updateJob(input: unknown) {
+  const parsed = Input.parse(input)
+  // auth check (Supabase session)
+  // mutate via drizzle
+}
+```
+
+Title: Next.js App Conventions
+
+- **Routing**: App Router with route groups. Prefer Server Components.
+- **Server Actions**: Mutations via server actions; validate with `zod`. Avoid client-only mutations.
+- **Data Fetching**: Use async RSC with caching where appropriate. Revalidate per data needs.
+- **Client Components**: Mark `"use client"` minimally; colocate hooks and event handlers.
+- **Edge vs Node**: Chromium/PDF and heavy libs → Node runtime route.
+- **Env**: Access via process env accessors; never inline secrets.
+- **PDF**: Default `@react-pdf/renderer`. For HTML parity, Node route with `puppeteer-core` + `@sparticuz/chromium`.
+- **AI SDK**: Vercel AI SDK (`ai`, `@ai-sdk/openai`). Default `gpt-5-mini`; optional `gpt-5`.
+- **Streaming**: Use `streamText` for cover letters; cache-safe headers.
+- **Layouts**: Keep `app/layout.tsx` light. Global providers in `providers.tsx`.
+- **RSC Safety**: Do not import server-only modules into client components.
+
+Server Action Template
+
+```ts
+"use server"
+import { z } from "zod"
+import { db } from "@/lib/db"
+
+const Input = z.object({ id: z.string().uuid(), title: z.string().min(1) })
+
+export async function updateJob(input: unknown) {
+  const parsed = Input.parse(input)
+  // auth check (Supabase session)
+  // mutate via drizzle
+}
+```
+
