@@ -119,4 +119,3 @@ This project defines agent-specific workflows in [AGENT.md](./AGENT.md).
 
 ## License
 Proprietary or as defined by the repository owner.
-
