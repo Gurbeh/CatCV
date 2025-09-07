@@ -1,0 +1,14 @@
+name: codeql-config
+
+paths-ignore:
+  - node_modules/**
+  - dist/**
+  - public/**
+  - .next/**
+  - out/**
+  - coverage/**
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+  - "**/*.spec.ts"
+  - "**/*.spec.tsx"
+
