@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { createSupabaseMiddlewareClient } from '@/lib/supabase/auth'
+import { createSupabaseMiddlewareClient } from '@/lib/supabase/middleware'
 
 const AUTH_ROUTES = ['/login', '/sign-up']
 const PROTECTED_PREFIXES = ['/dashboard', '/jobs']

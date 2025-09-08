@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import type { Session, User } from '@supabase/supabase-js'
-import { createSupabaseBrowserClient } from '@/lib/supabase/auth'
+import { createSupabaseBrowserClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 
 type AuthContextValue = {
