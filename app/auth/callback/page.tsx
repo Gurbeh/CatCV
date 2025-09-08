@@ -14,6 +14,7 @@ export default function AuthCallbackPage() {
     // Simply accessing the client on this page allows @supabase/ssr to parse the code hash
     // and persist the session in cookies/localStorage. Then we can redirect.
     supabase.auth.getSession().finally(() => {
+      console.log('redirect to 2:', next);
       router.replace(next)
     })
   }, [router, next])

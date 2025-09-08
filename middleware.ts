@@ -1,30 +1,26 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { createServerClient } from '@supabase/ssr'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+// Edge-safe middleware: avoid importing Supabase client to keep Edge bundle Node-free
+// We infer authentication by checking for the Supabase access token cookie set by our app
+// via server actions/pages using @supabase/ssr.
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next({ request: req })
 
-  const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
-    cookies: {
-      getAll() {
-        return req.cookies.getAll().map((c) => ({ name: c.name, value: c.value }))
-      },
-      setAll(cookies) {
-        cookies.forEach((c) => res.cookies.set({ name: c.name, value: c.value, ...c.options }))
-      },
-    },
-  })
-
   const url = req.nextUrl
   const path = url.pathname
 
+
+  console.log('redirect to 3:', { reqUrl: req?.url, url, path});
+
+  // Supabase cookies (set by @supabase/ssr) commonly include:
+  // - 'sb-access-token' and 'sb-refresh-token'
+  // Presence of 'sb-access-token' is a good signal that the user is authenticated.
+  const hasAccessToken = Boolean(req.cookies.get('sb-access-token')?.value)
+
   // Protected app routes: require authentication
   if (path.startsWith('/dashboard') || path.startsWith('/jobs')) {
-    const { data } = await supabase.auth.getUser()
-    if (!data.user) {
+    if (!hasAccessToken) {
       const redirectUrl = new URL('/login', req.url)
       redirectUrl.searchParams.set('redirectTo', path)
       return NextResponse.redirect(redirectUrl)
@@ -34,8 +30,7 @@ export async function middleware(req: NextRequest) {
 
   // Auth routes: redirect authenticated users away from login/sign-up
   if (path === '/login' || path === '/sign-up') {
-    const { data } = await supabase.auth.getUser()
-    if (data.user) {
+    if (hasAccessToken) {
       const redirectUrl = new URL('/dashboard', req.url)
       return NextResponse.redirect(redirectUrl)
     }
