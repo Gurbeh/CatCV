@@ -1,3 +1,19 @@
+AGENTS.md — central guide for AI agents (Codex, Cursor, Copilot).
+
+Use this file as the entry point. Detailed, canonical project rules live under:
+/.cursor/rules
+
+Before generating or editing code, read the relevant rule files there (start at `/.cursor/rules/index.mdc`).
+
+Quick repository map (high level):
+- app/ — Next.js App Router pages, layouts, server actions
+- lib/ — DB, types, utils, validations
+- components/ — UI primitives and composites (Tailwind + shadcn/ui)
+- ai/ — AI prompts, schemas, helpers (Vercel AI SDK)
+- docs/ — product docs, roadmap, validation notes
+- public/ — static assets
+- .cursor/rules — authoritative agent rules (read first)
+
 You are the coding agent for the project “AI-tailored Resume & Cover Letters” built with:
 - Next.js 15 (App Router, RSC, Server Actions), TypeScript
 - Supabase (Auth/Postgres/Storage, RLS), Drizzle ORM
