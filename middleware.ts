@@ -1,12 +1,10 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
 const AUTH_ROUTES = ['/login', '/sign-up']
-const PROTECTED_PREFIXES = ['/dashboard', '/jobs']
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
   const isAuthRoute = AUTH_ROUTES.some((r) => pathname.startsWith(r))
-  const isProtected = PROTECTED_PREFIXES.some((p) => pathname.startsWith(p))
 
   // Defer auth checks to client AuthGuard for now to avoid Edge runtime issues.
   // Keep minimal redirect logic: prevent signed-in users from visiting auth routes via cookie hint.
