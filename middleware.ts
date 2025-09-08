@@ -19,18 +19,32 @@ export async function middleware(req: NextRequest) {
   })
 
   const url = req.nextUrl
-  const isProtected = url.pathname.startsWith('/dashboard') || url.pathname.startsWith('/jobs')
-  if (!isProtected) return res
+  const path = url.pathname
 
-  const { data } = await supabase.auth.getUser()
-  if (!data.user) {
-    const redirectUrl = new URL('/login', req.url)
-    redirectUrl.searchParams.set('redirectTo', url.pathname)
-    return NextResponse.redirect(redirectUrl)
+  // Protected app routes: require authentication
+  if (path.startsWith('/dashboard') || path.startsWith('/jobs')) {
+    const { data } = await supabase.auth.getUser()
+    if (!data.user) {
+      const redirectUrl = new URL('/login', req.url)
+      redirectUrl.searchParams.set('redirectTo', path)
+      return NextResponse.redirect(redirectUrl)
+    }
+    return res
   }
+
+  // Auth routes: redirect authenticated users away from login/sign-up
+  if (path === '/login' || path === '/sign-up') {
+    const { data } = await supabase.auth.getUser()
+    if (data.user) {
+      const redirectUrl = new URL('/dashboard', req.url)
+      return NextResponse.redirect(redirectUrl)
+    }
+    return res
+  }
+
   return res
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/jobs/:path*'],
+  matcher: ['/dashboard/:path*', '/jobs/:path*', '/login', '/sign-up'],
 }

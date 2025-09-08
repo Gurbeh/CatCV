@@ -104,7 +104,7 @@ export async function signUpAction(_: unknown, formData: FormData) {
 }
 
 export async function signOutAction() {
-  const supabase = await getServerSupabase()
+  const supabase = await getActionSupabase()
   await supabase.auth.signOut()
   return { ok: true }
 }
