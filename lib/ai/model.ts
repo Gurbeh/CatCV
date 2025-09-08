@@ -1,5 +1,4 @@
-"use server"
-
+import 'server-only'
 import { createOpenAI } from "@ai-sdk/openai"
 
 export type ModelKind = "default" | "pro"
