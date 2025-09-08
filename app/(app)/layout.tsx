@@ -1,4 +1,4 @@
-import { AppHeader } from '@/components/AppHeader'
+import { AppHeader } from '@/components/appHeader/AppHeader'
 import { AuthGuard } from '@/components/auth/AuthGuard'
 // Auth is enforced via middleware; no client guard to avoid loops
 
