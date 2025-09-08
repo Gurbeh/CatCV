@@ -6,11 +6,11 @@ import { useAuthStore } from '@/lib/authStore'
 
 describe('AppHeader', () => {
   beforeEach(() => {
-    // reset store to pre-hydration
-    useAuthStore.setState({ user: undefined } as any, true)
+    // reset store to pre-hydration (preserve methods)
+    useAuthStore.setState({ user: undefined } as any)
   })
   afterEach(() => {
-    useAuthStore.setState({ user: undefined } as any, true)
+    useAuthStore.setState({ user: undefined } as any)
   })
 
   it('before hydration: shows skeleton, no Login/Sign Up', () => {
@@ -50,4 +50,3 @@ describe('AppHeader', () => {
     expect(screen.queryByText('Sign Up')).not.toBeInTheDocument()
   })
 })
-
