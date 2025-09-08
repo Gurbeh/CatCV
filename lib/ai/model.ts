@@ -15,14 +15,14 @@ export function getModelName(kind: ModelKind = "default"): string {
   return name
 }
 
-export function getOpenAI(kind: ModelKind = "default") {
+export function getOpenAI() {
   const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) throw new Error("OPENAI_API_KEY env var is required")
   return createOpenAI({ apiKey, compatibility: "strict" })
 }
 
 export function getModel(kind: ModelKind = "default") {
-  const openai = getOpenAI(kind)
+  const openai = getOpenAI()
   const modelName = getModelName(kind)
   return openai(modelName)
 }

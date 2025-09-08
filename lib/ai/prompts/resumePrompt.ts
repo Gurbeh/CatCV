@@ -27,7 +27,8 @@ export function buildResumePrompt(params: {
 
 export function sanitizeInput(input: string): string {
   // Basic sanitization per rules: strip control chars, limit length, neutralize angle brackets
-  const trimmed = input.replace(/[\u0000-\u001F\u007F]/g, " ")
+  const CONTROL_CHARS = new RegExp("[\\u0000-\\u001F\\u007F]", "g")
+  const trimmed = input.replace(CONTROL_CHARS, " ")
   const limited = trimmed.slice(0, 50_000)
   return limited.replace(/</g, "&lt;").replace(/>/g, "&gt;")
 }
