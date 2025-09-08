@@ -18,7 +18,23 @@ type CookieOptions = {
   sameSite?: 'lax' | 'strict' | 'none'
 }
 
+// RSC-safe: read-only cookies adapter (no mutation)
 async function getServerSupabase() {
+  const cookieStore = await cookies()
+  return createServerClient(supabaseUrl, supabaseAnonKey, {
+    cookies: {
+      getAll() {
+        const entries = cookieStore.getAll()
+        return entries.map((c) => ({ name: c.name, value: c.value }))
+      },
+      // No-op in RSC to avoid Next cookie mutation error
+      setAll() {},
+    },
+  })
+}
+
+// Server Action / Route Handler: allow cookie mutation
+async function getActionSupabase() {
   const cookieStore = await cookies()
   return createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
@@ -45,7 +61,7 @@ export async function signInAction(_: unknown, formData: FormData) {
   })
   if (!parsed.success) return { ok: false, error: 'Invalid credentials' }
 
-  const supabase = await getServerSupabase()
+  const supabase = await getActionSupabase()
   const { error } = await supabase.auth.signInWithPassword(parsed.data)
   if (error) return { ok: false, error: error.message }
   const redirectTo = String(formData.get('redirectTo') ?? '/dashboard')
@@ -64,7 +80,7 @@ export async function signInNoRedirect(_: unknown, formData: FormData) {
     password: String(formData.get('password') ?? ''),
   })
   if (!parsed.success) return { ok: false, error: 'Invalid credentials' }
-  const supabase = await getServerSupabase()
+  const supabase = await getActionSupabase()
   const { error } = await supabase.auth.signInWithPassword(parsed.data)
   if (error) return { ok: false, error: error.message }
   return { ok: true }
@@ -77,7 +93,7 @@ export async function signUpAction(_: unknown, formData: FormData) {
   })
   if (!parsed.success) return { ok: false, error: 'Invalid input' }
 
-  const supabase = await getServerSupabase()
+  const supabase = await getActionSupabase()
   const { error } = await supabase.auth.signUp({
     email: parsed.data.email,
     password: parsed.data.password,

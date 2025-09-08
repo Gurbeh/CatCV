@@ -26,7 +26,18 @@ vi.mock('next/navigation', () => ({
   usePathname: () => '/',
 }))
 
+// Mock next/headers to avoid cookie mutation errors in jsdom
+vi.mock('next/headers', () => ({
+  cookies: async () => ({
+    getAll: () => [],
+    get: (_name?: string) => undefined,
+    set: (_name: string, _value: string, _opts?: any) => {},
+    delete: (_name: string) => {},
+  }),
+  headers: () => new Headers(),
+  draftMode: () => ({ isEnabled: false, enable: () => {}, disable: () => {} }),
+}))
+
 vi.mock('@/lib/supabase/server', () => ({
   signOutAction: vi.fn(async () => {}),
 }))
-
