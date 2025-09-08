@@ -28,6 +28,12 @@ export default function LoginPage() {
         redirectTo: `${siteUrl}/auth/callback?next=${encodeURIComponent(redirectTo)}`,
       },
     })
+    console.log('redirect to :',{
+      siteUrl,
+      redirectTo: `${siteUrl}/auth/callback?next=${encodeURIComponent(redirectTo)}`,
+      data,
+      dataURL: data?.url
+    });
     if (error) {
       console.error('Google OAuth error', error)
       setLoading(null)
