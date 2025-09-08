@@ -27,14 +27,14 @@ export async function GET(req: NextRequest) {
   const [gen] = await db
     .select()
     .from(aiGenerations)
-    .where(eq(aiGenerations.id as any, parsed.data.generationId as any))
+    .where(eq(aiGenerations.id, parsed.data.generationId as unknown as typeof aiGenerations.id['_']['data']))
     .limit(1)
   if (!gen || gen.userId !== userId) return new Response('Not found', { status: 404 })
 
   const prompt = buildCoverLetterPrompt({ jdText: parsed.data.jdText })
-  const model = getOpenAI()
+  const model = getModel(parsed.data.pro ? 'pro' : 'default')
   const s = await streamText({
-    model: model as unknown as any,
+    model,
     prompt,
     onFinish: async ({ text }: { text: string }) => {
       try {
@@ -48,7 +48,7 @@ export async function GET(req: NextRequest) {
         })
       } catch {/* no-op */}
     },
-  } as unknown as any)
+  })
 
   // Let the SDK format the SSE response
   return s.toAIStreamResponse({ headers: { 'X-Model': getModelName(parsed.data.pro ? 'pro' : 'default') } } as unknown as ResponseInit)

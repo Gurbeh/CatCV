@@ -2,8 +2,9 @@ export const runtime = 'nodejs'
 
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
-import { getOpenAI, getModelName } from '@/lib/ai/model'
+import { getModel, getModelName } from '@/lib/ai/model'
 import { generateObject } from 'ai'
+import type { LanguageModelV1 } from 'ai'
 import { ResumeZodSchema } from '@/lib/ai/schemas/resume.zod'
 import { buildResumePrompt, PROMPT_VERSION } from '@/lib/ai/prompts/resumePrompt'
 import { validateJsonResume, formatAjvErrors } from '@/lib/jsonresume/ajv'
@@ -80,9 +81,9 @@ export async function POST(req: NextRequest) {
 
   try {
     const prompt = buildResumePrompt({ jdText, baseResumeText, options })
-    const model = getOpenAI(pro ? 'pro' : 'default')
+    const model = getModel(pro ? 'pro' : 'default') as unknown as LanguageModelV1
     const start = Date.now()
-    const result = await generateObject({ model: model as unknown as any, schema: ResumeZodSchema, prompt })
+    const result = await generateObject({ model, schema: ResumeZodSchema, prompt })
     const durationMs = Date.now() - start
 
     // Validate result against JSON Resume via AJV strictly
