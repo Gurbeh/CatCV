@@ -51,6 +51,6 @@ export async function GET(req: NextRequest) {
   })
 
   // Let the SDK format the SSE response
-  return s.toAIStreamResponse({ headers: { 'X-Model': getModelName(parsed.data.pro ? 'pro' : 'default') } } as unknown as ResponseInit)
+  return s.toDataStreamResponse({ headers: { 'X-Model': getModelName(parsed.data.pro ? 'pro' : 'default') } })
 }
 

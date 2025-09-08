@@ -9,7 +9,7 @@ vi.mock('ai', () => ({
 }))
 
 vi.mock('@/lib/ai/model', () => ({
-  getOpenAI: () => ({}),
+  getModel: () => ({}),
   getModelName: () => 'mock-model',
 }))
 
