@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
   const [doc] = await db
     .select()
     .from(generatedDocuments)
-    .where(eq(generatedDocuments.id as any, parsed.data.documentId as any))
+    .where(eq(generatedDocuments.id, parsed.data.documentId as unknown as typeof generatedDocuments.id['_']['data']))
     .limit(1)
   if (!doc || doc.userId !== userId) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
   )
 
   const stream = await renderToStream(React.createElement(Content))
-  return new NextResponse(stream as any, {
+  return new NextResponse(stream as unknown as ReadableStream, {
     headers: {
       'Content-Type': 'application/pdf',
       'Cache-Control': 'no-store',

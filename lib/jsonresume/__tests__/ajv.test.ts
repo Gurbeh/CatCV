@@ -6,13 +6,13 @@ describe('AJV JSON Resume', () => {
     const resume = {
       basics: { name: 'Ada Lovelace' },
     }
-    const ok = validateJsonResume(resume as any)
+    const ok = validateJsonResume(resume)
     expect(ok).toBe(true)
   })
 
   it('rejects invalid resume', () => {
     const resume = { basics: { name: 123 } } // invalid type
-    const ok = validateJsonResume(resume as any)
+    const ok = validateJsonResume(resume)
     expect(ok).toBe(false)
   })
 })

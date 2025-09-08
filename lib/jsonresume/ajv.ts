@@ -15,7 +15,7 @@ export const ajv = new Ajv({
 
 addFormats(ajv)
 
-export const validateJsonResume = ajv.compile(resumeSchema as any)
+export const validateJsonResume = ajv.compile<Record<string, unknown>>(resumeSchema as unknown as Record<string, unknown>)
 
 export type AjvError = {
   instancePath?: string

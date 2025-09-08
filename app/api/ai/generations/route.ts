@@ -51,12 +51,12 @@ export async function POST(req: NextRequest) {
     const [resume] = await db
       .select()
       .from(resumesTable)
-      .where(eq(resumesTable.id as any, resumeId as any))
+      .where(eq(resumesTable.id, resumeId as unknown as typeof resumesTable.id['_']['data']))
       .limit(1)
     if (!resume || resume.userId !== userId) {
       return NextResponse.json({ error: 'Resume not found' }, { status: 404 })
     }
-    const valid = validateJsonResume(resume.jsonResume as any)
+    const valid = validateJsonResume(resume.jsonResume as Record<string, unknown>)
     if (!valid) {
       const errors = formatAjvErrors(validateJsonResume.errors || [])
       return NextResponse.json({ error: 'Resume schema invalid', errors }, { status: 400 })
@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
     .values({
       userId,
       jdSnapshot: jdText,
-      resumeId: resumeId as any,
+      resumeId: resumeId as unknown as typeof resumesTable.id['_']['data'],
       status: 'running',
       provider: 'openai',
       model: getModelName(pro ? 'pro' : 'default'),
@@ -82,12 +82,12 @@ export async function POST(req: NextRequest) {
     const prompt = buildResumePrompt({ jdText, baseResumeText, options })
     const model = getOpenAI(pro ? 'pro' : 'default')
     const start = Date.now()
-    const result = await generateObject({ model: model as any, schema: ResumeZodSchema, prompt })
+    const result = await generateObject({ model: model as unknown as any, schema: ResumeZodSchema, prompt })
     const durationMs = Date.now() - start
 
     // Validate result against JSON Resume via AJV strictly
     const jsonResume = result.object
-    const valid = validateJsonResume(jsonResume as any)
+    const valid = validateJsonResume(jsonResume as Record<string, unknown>)
     if (!valid) {
       const errors = formatAjvErrors(validateJsonResume.errors || [])
       throw new Error(`Generated resume failed JSON Resume validation: ${errors.join('; ')}`)
@@ -98,21 +98,21 @@ export async function POST(req: NextRequest) {
       generationId: gen.id,
       type: 'resume',
       format: 'jsonresume',
-      content: jsonResume as any,
+      content: jsonResume as unknown as Record<string, unknown>,
       version: PROMPT_VERSION,
     })
 
     await db
       .update(aiGenerations)
-      .set({ status: 'succeeded', metricsJson: { durationMs, usage: result.usage } as any })
-      .where(eq(aiGenerations.id as any, gen.id as any))
+      .set({ status: 'succeeded', metricsJson: { durationMs, usage: result.usage } as Record<string, unknown> })
+      .where(eq(aiGenerations.id, gen.id))
 
     return NextResponse.json({ id: gen.id, status: 'succeeded' })
-  } catch (err: any) {
+  } catch (err: unknown) {
     await db
       .update(aiGenerations)
-      .set({ status: 'failed', errorJson: { message: String(err?.message || 'Failed') } as any })
-      .where(eq(aiGenerations.id as any, gen.id as any))
+      .set({ status: 'failed', errorJson: { message: String((err as Error)?.message || 'Failed') } as Record<string, unknown> })
+      .where(eq(aiGenerations.id, gen.id))
     return NextResponse.json({ id: gen.id, status: 'failed', error: 'Generation failed' }, { status: 500 })
   }
 }
@@ -129,7 +129,7 @@ export async function GET(req: NextRequest) {
   const [row] = await db
     .select()
     .from(aiGenerations)
-    .where(eq(aiGenerations.id as any, id as any))
+    .where(eq(aiGenerations.id, id as unknown as typeof aiGenerations.id['_']['data']))
     .limit(1)
   if (!row || row.userId !== userId) return NextResponse.json({ error: 'Not found' }, { status: 404 })
   return NextResponse.json({ id: row.id, status: row.status, metrics: row.metricsJson })

@@ -32,9 +32,9 @@ export async function GET(req: NextRequest) {
   if (!gen || gen.userId !== userId) return new Response('Not found', { status: 404 })
 
   const prompt = buildCoverLetterPrompt({ jdText: parsed.data.jdText })
-  const model = getOpenAI(parsed.data.pro ? 'pro' : 'default')
+  const model = getOpenAI()
   const s = await streamText({
-    model: model as any,
+    model: model as unknown as any,
     prompt,
     onFinish: async ({ text }: { text: string }) => {
       try {
@@ -43,14 +43,14 @@ export async function GET(req: NextRequest) {
           generationId: gen.id,
           type: 'cover_letter',
           format: 'markdown',
-          content: text as any,
+          content: text as unknown as Record<string, unknown>,
           version: PROMPT_VERSION,
         })
-      } catch {}
+      } catch {/* no-op */}
     },
-  } as any)
+  } as unknown as any)
 
   // Let the SDK format the SSE response
-  return s.toAIStreamResponse({ headers: { 'X-Model': getModelName(parsed.data.pro ? 'pro' : 'default') } } as any)
+  return s.toAIStreamResponse({ headers: { 'X-Model': getModelName(parsed.data.pro ? 'pro' : 'default') } } as unknown as ResponseInit)
 }
 

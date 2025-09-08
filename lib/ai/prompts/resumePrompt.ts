@@ -27,9 +27,10 @@ export function buildResumePrompt(params: {
 
 export function sanitizeInput(input: string): string {
   // Basic sanitization per rules: strip control chars, limit length, neutralize angle brackets
-  const CONTROL_CHARS = new RegExp("[\\u0000-\\u001F\\u007F]", "g")
-  const trimmed = input.replace(CONTROL_CHARS, " ")
+  const controlRange = `[${String.fromCharCode(0)}-${String.fromCharCode(31)}${String.fromCharCode(127)}]`
+  const CONTROL_CHARS = new RegExp(controlRange, 'g')
+  const trimmed = input.replace(CONTROL_CHARS, ' ')
   const limited = trimmed.slice(0, 50_000)
-  return limited.replace(/</g, "&lt;").replace(/>/g, "&gt;")
+  return limited.replace(/</g, '&lt;').replace(/>/g, '&gt;')
 }
 
