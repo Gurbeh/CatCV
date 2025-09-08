@@ -4,6 +4,9 @@ ALTER TABLE resumes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE job_descriptions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE applications ENABLE ROW LEVEL SECURITY;
 ALTER TABLE application_status_history ENABLE ROW LEVEL SECURITY;
+ALTER TABLE job_description_drafts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ai_generations ENABLE ROW LEVEL SECURITY;
+ALTER TABLE generated_documents ENABLE ROW LEVEL SECURITY;
 
 -- Users table policies
 -- Users can only see and modify their own record
@@ -90,6 +93,9 @@ CREATE INDEX IF NOT EXISTS idx_applications_resume_id ON applications(resume_id)
 CREATE INDEX IF NOT EXISTS idx_applications_job_description_id ON applications(job_description_id);
 CREATE INDEX IF NOT EXISTS idx_application_status_history_application_id ON application_status_history(application_id);
 CREATE INDEX IF NOT EXISTS idx_application_status_history_changed_by ON application_status_history(changed_by);
+CREATE INDEX IF NOT EXISTS idx_job_description_drafts_user_id ON job_description_drafts(user_id);
+CREATE INDEX IF NOT EXISTS idx_ai_generations_user_id ON ai_generations(user_id);
+CREATE INDEX IF NOT EXISTS idx_generated_documents_user_id ON generated_documents(user_id);
 
 -- Create a function to automatically update the updated_at timestamp
 CREATE OR REPLACE FUNCTION update_updated_at_column()
@@ -111,4 +117,33 @@ CREATE TRIGGER update_job_descriptions_updated_at BEFORE UPDATE ON job_descripti
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 CREATE TRIGGER update_applications_updated_at BEFORE UPDATE ON applications
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- AI-related table policies
+-- JD Drafts: owner-only access
+CREATE POLICY "Users can view own jd drafts" ON job_description_drafts
+  FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Users can insert own jd drafts" ON job_description_drafts
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can update own jd drafts" ON job_description_drafts
+  FOR UPDATE USING (auth.uid() = user_id);
+CREATE POLICY "Users can delete own jd drafts" ON job_description_drafts
+  FOR DELETE USING (auth.uid() = user_id);
+
+-- AI Generations: owner-only
+CREATE POLICY "Users can view own ai generations" ON ai_generations
+  FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Users can insert own ai generations" ON ai_generations
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can update own ai generations" ON ai_generations
+  FOR UPDATE USING (auth.uid() = user_id);
+
+-- Generated documents: owner-only
+CREATE POLICY "Users can view own generated documents" ON generated_documents
+  FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Users can insert own generated documents" ON generated_documents
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE TRIGGER update_job_description_drafts_updated_at BEFORE UPDATE ON job_description_drafts
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_ai_generations_updated_at BEFORE UPDATE ON ai_generations
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();

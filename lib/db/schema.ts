@@ -174,3 +174,6 @@ export type ApplicationStatusHistory = typeof applicationStatusHistory.$inferSel
 export type NewApplicationStatusHistory = typeof applicationStatusHistory.$inferInsert;
 
 export type ApplicationStatus = typeof applicationStatusEnum.enumValues[number];
+
+// AI-related tables and enums
+export * from './schema/ai'
