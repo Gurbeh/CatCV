@@ -11,6 +11,13 @@ Title: Testing & Quality
 - **CI**: Cache deps; run lints, unit, then e2e (smoke) per PR.
 - **Perf tests**: Track TTFB and hydration for key pages periodically.
 
+Always run tests (agent + dev)
+
+- **Local**: After making edits affecting logic, routes, server actions, or DB, run `npm test` locally and fix failures before opening/merging a PR.
+- **Agent**: Background/automation must run `npm test` after code edits and before reporting success. If tests fail, fix them or surface the failures with a short justification and next steps.
+- **Isolation**: Mock external services (AI, DB, network) by default in tests; avoid real outbound calls. Keep tests fast and deterministic.
+- **Minimum**: For new routes/server actions, add at least one mocked integration test that exercises request/response and persistence logic.
+
 Build validation
 
 - Each task must pass a local build before PR: `pnpm build` (or `flox activate -- bash -c "pnpm build"`).
