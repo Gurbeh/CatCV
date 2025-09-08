@@ -19,8 +19,10 @@ vi.mock('@/lib/supabase/server', () => ({
 
 // Minimal in-memory DB mock
 type Row = Record<string, any>
+const RESUME_ID = '00000000-0000-0000-0000-000000000001'
+const DOC_ID = '00000000-0000-0000-0000-000000000002'
 const mem = {
-  resumes: [{ id: 'r1', userId: 'u1', jsonResume: { basics: { name: 'Ada' } } }] as Row[],
+  resumes: [{ id: RESUME_ID, userId: 'u1', jsonResume: { basics: { name: 'Ada' } } }] as Row[],
   aiGenerations: [] as Row[],
   generatedDocuments: [] as Row[],
 }
@@ -52,7 +54,7 @@ vi.mock('@/lib/db', () => ({
             return [row]
           }
           if (table === generatedDocuments) {
-            const row = { id: 'd1', ...val }
+            const row = { id: DOC_ID, ...val }
             mem.generatedDocuments.push(row)
             return [row]
           }
@@ -90,7 +92,7 @@ describe('AI generation -> export flow (mocked)', () => {
 
     // Create generation
     const reqPost: any = {
-      json: async () => ({ jdText: 'Great role', resumeId: 'r1' }),
+      json: async () => ({ jdText: 'Great role', resumeId: RESUME_ID }),
       headers: new Headers(),
       ip: '127.0.0.1',
     }
@@ -108,8 +110,19 @@ describe('AI generation -> export flow (mocked)', () => {
     expect(bodyGet.status).toBe('succeeded')
 
     // Export PDF for the generated resume document
+    // Ensure a document exists for export in the mock store
+    mem.generatedDocuments.push({
+      id: DOC_ID,
+      userId: 'u1',
+      generationId: 'g1',
+      type: 'resume',
+      format: 'jsonresume',
+      content: { basics: { name: 'Test User' } },
+      version: 'mvp-ai-001',
+    })
+
     const reqPdf: any = {
-      json: async () => ({ documentId: 'd1', kind: 'resume' }),
+      json: async () => ({ documentId: DOC_ID, kind: 'resume' }),
     }
     const resPdf = await PDF_POST(reqPdf as any)
     expect(resPdf.status).toBe(200)
