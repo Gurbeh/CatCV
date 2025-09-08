@@ -8,6 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "vitest run --reporter=verbose",
+    "test:watch": "vitest",
     "format": "prettier --write \"{app,components,lib,ai}/**/*.{ts,tsx,css,md}\"",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
@@ -34,6 +36,8 @@
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
     "@typescript-eslint/parser": "^7.7.0",
     "autoprefixer": "^10.4.19",
@@ -41,9 +45,11 @@
     "eslint-config-next": "^15.0.0",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "jsdom": "^25.0.1",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vitest": "^2.0.5"
   }
 }
