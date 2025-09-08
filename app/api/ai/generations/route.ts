@@ -26,7 +26,9 @@ export async function POST(req: NextRequest) {
   const userId = auth.session?.user?.id
   if (!userId) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || req.ip || 'unknown'
+  const xff = req.headers.get('x-forwarded-for') || ''
+  const xri = req.headers.get('x-real-ip') || ''
+  const ip = (xff.split(',')[0] || xri || 'unknown').trim()
   const rl = await enforceRateLimits({ userId, ip })
   if (!rl.ok) {
     return NextResponse.json(

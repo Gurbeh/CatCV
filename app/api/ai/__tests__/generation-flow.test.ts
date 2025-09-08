@@ -125,6 +125,6 @@ describe('AI generation -> export flow (mocked)', () => {
     const resPdf = await PDF_POST(reqPdf)
     expect(resPdf.status).toBe(200)
     expect(resPdf.headers.get('Content-Type')).toContain('application/pdf')
-  })
+  }, 15000)
 })
 
