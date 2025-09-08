@@ -1,5 +1,5 @@
 import Ajv from "ajv"
-import resumeSchema from "@jsonresume/resume-schema/schema.json" assert { type: "json" }
+import resumeSchema from "@jsonresume/schema/schema.json" assert { type: "json" }
 
 export const ajv = new Ajv({
   allErrors: true,
