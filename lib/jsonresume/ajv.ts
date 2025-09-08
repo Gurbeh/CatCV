@@ -1,4 +1,5 @@
 import Ajv from "ajv"
+import type { ErrorObject } from "ajv"
 import addFormats from "ajv-formats"
 import resumeSchema from "@jsonresume/schema/schema.json" assert { type: "json" }
 
@@ -22,7 +23,7 @@ export type AjvError = {
   message?: string
 }
 
-export function formatAjvErrors(errors: readonly Ajv.ErrorObject[] | null | undefined): string[] {
+export function formatAjvErrors(errors: readonly ErrorObject[] | null | undefined): string[] {
   if (!errors) return []
   return errors.map((e) => `${e.instancePath || "/"}: ${e.message || "invalid"}`)
 }
