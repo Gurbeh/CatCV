@@ -1,29 +1,20 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { createSupabaseMiddlewareClient } from '@/lib/supabase/middleware'
 
 const AUTH_ROUTES = ['/login', '/sign-up']
 const PROTECTED_PREFIXES = ['/dashboard', '/jobs']
 
 export async function middleware(req: NextRequest) {
-  const res = NextResponse.next()
-  const supabase = createSupabaseMiddlewareClient(req, res)
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-
   const { pathname } = req.nextUrl
   const isAuthRoute = AUTH_ROUTES.some((r) => pathname.startsWith(r))
   const isProtected = PROTECTED_PREFIXES.some((p) => pathname.startsWith(p))
 
-  if (!session && isProtected) {
-    const url = new URL('/login', req.url)
-    url.searchParams.set('redirectTo', pathname)
-    return NextResponse.redirect(url)
-  }
-  if (session && isAuthRoute) {
+  // Defer auth checks to client AuthGuard for now to avoid Edge runtime issues.
+  // Keep minimal redirect logic: prevent signed-in users from visiting auth routes via cookie hint.
+  const hasSbAuth = req.cookies.has('sb-access-token') || req.cookies.has('sb:token')
+  if (hasSbAuth && isAuthRoute) {
     return NextResponse.redirect(new URL('/dashboard', req.url))
   }
-  return res
+  return NextResponse.next()
 }
 
 export const config = {
