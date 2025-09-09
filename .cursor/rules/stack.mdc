@@ -71,6 +71,14 @@ docs/rules/cursor-rules.md
 - `lib/state/*`: app-wide Zustand stores.
 - `app/(auth)`, `app/(dashboard)`, `app/api/*`: route groups for clarity.
 - `types/json-resume.ts`: shared types aligned with JSON Resume spec.
+- Colocated component/module structure:
+  - For each component or module, create a dedicated folder named in camelCase (e.g., `appHeader`).
+  - Place the main file (e.g., `AppHeader.tsx`) and its test (e.g., `AppHeader.test.tsx`) inside that folder.
+  - Do not use `__tests__` directories. Tests must sit next to their related source file.
+  - Apply this convention repo-wide (components, lib, app routes, providers, middleware, utilities).
+  - Example structure:
+    - `components/appHeader/AppHeader.tsx`
+    - `components/appHeader/AppHeader.test.tsx`
 
 ## Performance & Limits
 - Apply rate limits per user + per IP for AI endpoints.

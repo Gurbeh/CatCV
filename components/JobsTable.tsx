@@ -4,10 +4,10 @@ import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { useJobs } from '@/lib/jobsContext'
 import { formatDate } from '@/lib/date'
-import { ConfirmDialog } from '@/components/ConfirmDialog'
 import { ExternalLink, Link as LinkIcon, Trash2 } from 'lucide-react'
 import { toast } from '@/components/ui/sonner'
 import Link from 'next/link'
+import { ConfirmDialog } from '@/components/confirmDialog/ConfirmDialog';
 
 export function JobsTable() {
   const { jobs, removeJob } = useJobs()

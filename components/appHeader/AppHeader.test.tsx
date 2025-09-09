@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { AppHeader } from '../AppHeader'
+import { AppHeader } from './AppHeader'
 import { useAuthStore } from '@/lib/authStore'
 
 describe('AppHeader', () => {
