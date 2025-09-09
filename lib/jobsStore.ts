@@ -2,6 +2,7 @@ import { nanoid } from 'nanoid'
 import { z } from 'zod'
 import { clearAll as storageClear, loadRaw, saveRaw } from './storage'
 import type { Job, JobId, JobInput } from './types'
+import { JsonResumeSchema } from './types/json-resume'
 
 const JobSchema = z.object({
   id: z.string(),
@@ -11,6 +12,8 @@ const JobSchema = z.object({
   createdAt: z.string(),
   updatedAt: z.string(),
   status: z.union([z.literal('saved'), z.literal('analyzed')]),
+  tailoredResume: JsonResumeSchema.optional(),
+  coverLetter: z.string().optional(),
 })
 
 const JobInputSchema = z.object({

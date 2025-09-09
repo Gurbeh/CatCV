@@ -16,7 +16,7 @@ vi.mock('next/link', () => {
 vi.mock('next/image', () => {
   return {
     default: (props: any) => {
-      const { src, alt, ...rest } = props
+      const { src, alt, priority: _priority, ...rest } = props
       return <img src={typeof src === 'string' ? src : ''} alt={alt ?? ''} {...rest} />
     },
   }
