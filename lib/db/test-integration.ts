@@ -11,7 +11,7 @@
  * 4. Uncomment and run this code in a test environment
  */
 
-import { db } from './index';
+// import { db } from './index';
 import { 
   UserService, 
   ResumeService, 

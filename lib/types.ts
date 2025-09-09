@@ -8,6 +8,8 @@ export interface Job {
   createdAt: string
   updatedAt: string
   status: 'saved' | 'analyzed'
+  tailoredResume?: import('@/lib/types/json-resume').JsonResume
+  coverLetter?: string
 }
 
 export interface JobInput {
