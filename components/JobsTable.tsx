@@ -1,5 +1,5 @@
 "use client"
-import { Button, buttonClasses } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { useJobs } from '@/lib/jobsContext'
@@ -58,7 +58,9 @@ export function JobsTable() {
             </TableCell>
             <TableCell className="text-right">
               <div className="flex justify-end gap-2">
-                <Link href={`/jobs/${job.id}`} aria-label="Open details" className={buttonClasses({ variant: 'outline', size: 'sm' })}>Open</Link>
+                <Button variant="outline" size="sm" asChild>
+                  <Link href={`/jobs/${job.id}`} aria-label="Open details">Open</Link>
+                </Button>
                 <Button
                   variant="outline"
                   size="sm"

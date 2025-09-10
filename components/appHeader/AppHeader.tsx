@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { Button, buttonClasses } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { User } from 'lucide-react'
 import * as React from 'react'
 import { signOutAction } from '@/lib/supabase/server'
@@ -68,8 +68,12 @@ export function AppHeader() {
             </>
           ) : (
             <div className="flex items-center gap-2">
-              <Link href="/login" className={buttonClasses({ size: 'sm' })}>Login</Link>
-              <Link href="/sign-up" className={buttonClasses({ variant: 'outline', size: 'sm' })}>Sign Up</Link>
+              <Button size="sm" asChild>
+                <Link href="/login">Login</Link>
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <Link href="/sign-up">Sign Up</Link>
+              </Button>
             </div>
           )}
         </nav>

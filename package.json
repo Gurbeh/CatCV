@@ -11,12 +11,16 @@
     "test": "vitest run --reporter=verbose",
     "test:watch": "vitest",
     "format": "prettier --write \"{app,components,lib,ai}/**/*.{ts,tsx,css,md}\"",
+    "mcp:shadcn": "npx -y @magnusrodseth/shadcn-mcp-server",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.0.2",
+    "class-variance-authority": "^0.7.0",
+    "@radix-ui/react-label": "^2.1.7",
     "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.57.2",
     "@vercel/speed-insights": "^1.2.0",

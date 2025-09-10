@@ -5,10 +5,9 @@ import { useParams } from 'next/navigation'
 import { useJobs } from '@/lib/jobsContext'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { buttonClasses } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { formatDate } from '@/lib/date'
 import { Textarea } from '@/components/ui/textarea'
-import { Button } from '@/components/ui/button'
 import * as React from 'react'
 import { tailorResumeAndCoverLetter } from '@/ai/placeholders'
 import type { JsonResume } from '@/lib/types/json-resume'
@@ -28,7 +27,9 @@ export default function JobDetailPage() {
     return (
       <div className="space-y-4">
         <p>Job not found.</p>
-        <Link href="/" className={buttonClasses({ variant: 'outline' })}>Back</Link>
+        <Button variant="outline" asChild>
+          <Link href="/">Back</Link>
+        </Button>
       </div>
     )
   }
