@@ -98,3 +98,8 @@ EXAMPLES (TEMPLATES)
 - Output: plain text, maximum 600–800 words.
 
 Adhere strictly to these rules in all responses for this project.
+
+MCP (shadcn/ui)
+- Local MCP server is available via `.cursor/mcp.json` as `shadcn-ui`.
+- Run: `pnpm run mcp:shadcn` (stdio server). Point your client (Cursor/Codex/Claude) at this command.
+- `components.json` is included; installs will target `components/ui` and use `@/lib/utils` alias.

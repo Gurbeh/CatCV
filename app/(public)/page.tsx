@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { buttonClasses } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { Marquee } from '@/components/ui/marquee'
 import { Highlighter } from '@/components/ui/highlighter'
 
@@ -22,15 +22,23 @@ export default async function HomePage() {
       </p>
       {loggedIn ? (
         <div className="flex items-center gap-3">
-          <Link href="/dashboard" className={buttonClasses({ size: 'md' })}>Open Dashboard</Link>
-          <Link href="/jobs/new" className={buttonClasses({ variant: 'ghost', size: 'md' })}>
-            Track a new job <ArrowRight className="h-4 w-4" />
-          </Link>
+          <Button asChild>
+            <Link href="/dashboard">Open Dashboard</Link>
+          </Button>
+          <Button variant="ghost" asChild>
+            <Link href="/jobs/new">
+              Track a new job <ArrowRight className="h-4 w-4" />
+            </Link>
+          </Button>
         </div>
       ) : (
         <div className="flex gap-4">
-          <Link href="/login" className={buttonClasses({ size: 'lg' })}>Login</Link>
-          <Link href="/sign-up" className={buttonClasses({ variant: 'secondary', size: 'lg' })}>Sign Up</Link>
+          <Button size="lg" asChild>
+            <Link href="/login">Login</Link>
+          </Button>
+          <Button variant="secondary" size="lg" asChild>
+            <Link href="/sign-up">Sign Up</Link>
+          </Button>
         </div>
       )}
       <div className="w-full max-w-3xl pt-10">

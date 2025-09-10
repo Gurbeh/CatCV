@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "shadcn-ui": {
+      "command": "pnpm",
+      "args": ["run", "mcp:shadcn"],
+      "env": {}
+    }
+  }
+}
+

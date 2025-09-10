@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { buttonClasses } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { JobsTable } from '@/components/JobsTable'
 
 export default function DashboardPage() {
@@ -7,10 +7,11 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">Your Saved Applications</h1>
-        <Link href="/jobs/new" className={buttonClasses({})}>New Job</Link>
+        <Button asChild>
+          <Link href="/jobs/new">New Job</Link>
+        </Button>
       </div>
       <JobsTable />
     </div>
   )
 }
-
