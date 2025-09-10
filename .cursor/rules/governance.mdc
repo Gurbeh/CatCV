@@ -1,7 +1,0 @@
----
-alwaysApply: true
----
-Title: Governance
-
-- **Rule changes**: Never update, add, or remove anything under `@rules` (`.cursor/rules/`) without explicit user approval.
-
