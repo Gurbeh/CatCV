@@ -12,7 +12,7 @@ export function GuestGuard({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!isReady) return
     if (isLoggedIn) {
-      router.push('/')
+      router.push('/dashboard')
     }
   }, [isReady, isLoggedIn, router])
 
