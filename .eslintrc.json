@@ -1,0 +1,27 @@
+{
+  "extends": ["next/core-web-vitals"],
+  "rules": {
+    "no-restricted-globals": [
+      "error",
+      {
+        "name": "localStorage",
+        "message": "localStorage is forbidden. Use server-side data persistence with Supabase instead."
+      },
+      {
+        "name": "sessionStorage", 
+        "message": "sessionStorage is forbidden. Use server-side data persistence with Supabase instead."
+      }
+    ],
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "MemberExpression[object.name='window'][property.name='localStorage']",
+        "message": "window.localStorage is forbidden. Use server-side data persistence with Supabase instead."
+      },
+      {
+        "selector": "MemberExpression[object.name='window'][property.name='sessionStorage']",
+        "message": "window.sessionStorage is forbidden. Use server-side data persistence with Supabase instead."
+      }
+    ]
+  }
+}

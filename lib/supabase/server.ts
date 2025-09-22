@@ -19,7 +19,7 @@ type CookieOptions = {
 }
 
 // RSC-safe: read-only cookies adapter (no mutation)
-async function getServerSupabase() {
+export async function getServerSupabase() {
   const cookieStore = await cookies()
   return createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
@@ -34,7 +34,7 @@ async function getServerSupabase() {
 }
 
 // Server Action / Route Handler: allow cookie mutation
-async function getActionSupabase() {
+export async function getActionSupabase() {
   const cookieStore = await cookies()
   return createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
