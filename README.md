@@ -14,7 +14,7 @@ The app features a complete database schema with Drizzle ORM, Supabase integrati
   - “Paste here” helper reads text from the clipboard and inserts it into the description
   - Analyze button validates and saves the job locally, shows a success toast, and navigates Home
 - Optional job detail page (`/jobs/:id`) for a read‑only view
-- Local persistence via `localStorage` with zod validation
+- Server-side persistence via Supabase PostgreSQL with Row Level Security
 - Class‑based dark mode (Tailwind) and accessible UI components
 
 ## Tech Stack
@@ -59,8 +59,9 @@ export interface Job {
 ```
 
 Storage details:
-- Persisted under `localStorage` key: `job-app-assistant:jobs:v1`
-- CRUD utilities: `getAll()`, `get(id)`, `create(input)`, `update(id, patch)`, `remove(id)`, `clearAll()`
+- Persisted in Supabase PostgreSQL with Row Level Security
+- Server-side CRUD operations via Drizzle ORM
+- Multi-tenant data isolation with user authentication
 - All data is validated with zod at the boundaries
 
 ## Accessibility

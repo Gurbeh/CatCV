@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import { JobsProvider } from '@/lib/jobsContext'
 import { AuthProvider } from '@/components/auth/AuthProvider'
 import { Toaster } from 'sonner'
 
@@ -9,9 +8,7 @@ export function Providers({ children, initialUser }: { children: React.ReactNode
   return (
     <React.Fragment>
       <AuthProvider initialUser={initialUser}>
-        <JobsProvider>
-          {children}
-        </JobsProvider>
+        {children}
       </AuthProvider>
       <Toaster richColors closeButton position="top-right" />
     </React.Fragment>

@@ -5,11 +5,9 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-import { useJobs } from '@/lib/jobsContext'
 import { toast } from '@/components/ui/sonner'
-import { analyzeJob } from '@/ai/placeholders'
-import { nanoid } from 'nanoid'
-import type { Job } from '@/lib/types'
+import { createJobDescriptionAction } from '@/lib/actions/jobDescriptions'
+import { useRouter } from 'next/navigation'
 
 const FormSchema = z.object({
   companyName: z.string().min(1, 'Company is required'),
@@ -27,7 +25,7 @@ interface NewJobFormProps {
 }
 
 export function NewJobForm({ onSuccess }: NewJobFormProps) {
-  const { createJob } = useJobs()
+  const router = useRouter()
   const [values, setValues] = React.useState<FormValues>({
     companyName: '',
     jobLink: '',
@@ -80,20 +78,22 @@ export function NewJobForm({ onSuccess }: NewJobFormProps) {
     if (!isValid) return
     setSubmitting(true)
     try {
-      const now = new Date().toISOString()
-      const previewJob: Job = {
-        id: nanoid(),
-        companyName: values.companyName,
-        jobLink: values.jobLink,
-        jobText: values.jobText,
-        createdAt: now,
-        updatedAt: now,
-        status: 'saved',
+      // Create form data for server action
+      const formData = new FormData()
+      formData.append('companyName', values.companyName)
+      formData.append('jobTitle', 'Software Developer') // Default job title
+      if (values.jobLink) formData.append('jobUrl', values.jobLink)
+      formData.append('jobText', values.jobText)
+      
+      const result = await createJobDescriptionAction(formData)
+      
+      if (result.success) {
+        toast.success('Saved. Analysis will come in a future release.')
+        onSuccess()
+        router.push('/dashboard')
+      } else {
+        toast.error(result.error || 'Failed to save')
       }
-      await analyzeJob(previewJob)
-      createJob(values)
-      toast.success('Saved. Analysis will come in a future release.')
-      onSuccess()
     } catch (err) {
       console.error(err)
       toast.error('Failed to save')
