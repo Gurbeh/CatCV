@@ -1,11 +1,9 @@
 "use server"
 
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 import * as repo from '@/lib/repositories/jobDescriptions'
-import type { JobDescriptionInput, JobDescriptionUpdate } from '@/lib/repositories/jobDescriptions'
-import { convertLegacyJobToJobDescription } from '@/lib/utils/legacyConversion'
-import { z } from 'zod'
+import type { JobDescriptionUpdate } from '@/lib/repositories/jobDescriptions'
+import { convertLegacyJobToJobDescription, type LegacyJob } from '@/lib/utils/legacyConversion'
 
 // Server action results
 export type ActionResult<T = void> = {
@@ -17,7 +15,7 @@ export type ActionResult<T = void> = {
 // Create job description
 export async function createJobDescriptionAction(
   formData: FormData
-): Promise<ActionResult> {
+): Promise<ActionResult<{ id: string }>> {
   try {
     const input = {
       companyName: formData.get('companyName') as string,
@@ -33,10 +31,10 @@ export async function createJobDescriptionAction(
       metadata: undefined,
     }
 
-    await repo.createJobDescription(input)
+    const created = await repo.createJobDescription(input)
     
     revalidatePath('/dashboard')
-    return { success: true }
+    return { success: true, data: { id: created.id } }
   } catch (error) {
     console.error('Failed to create job description:', error)
     return { 
@@ -50,7 +48,7 @@ export async function createJobDescriptionAction(
 export async function updateJobDescriptionAction(
   id: string,
   updates: JobDescriptionUpdate
-): Promise<ActionResult> {
+): Promise<ActionResult<unknown>> {
   try {
     const result = await repo.updateJobDescription(id, updates)
     
@@ -71,7 +69,7 @@ export async function updateJobDescriptionAction(
 }
 
 // Delete job description
-export async function deleteJobDescriptionAction(id: string): Promise<ActionResult> {
+export async function deleteJobDescriptionAction(id: string): Promise<ActionResult<void>> {
   try {
     const deleted = await repo.deleteJobDescription(id)
     
@@ -91,7 +89,7 @@ export async function deleteJobDescriptionAction(id: string): Promise<ActionResu
 }
 
 // Clear all job descriptions
-export async function clearAllJobDescriptionsAction(): Promise<ActionResult> {
+export async function clearAllJobDescriptionsAction(): Promise<ActionResult<{ count: number }>> {
   try {
     const count = await repo.clearAllJobDescriptions()
     revalidatePath('/dashboard')
@@ -126,7 +124,7 @@ export async function getJobDescriptionByIdAction(id: string) {
 }
 
 // Migration action: convert localStorage data to database
-export async function migrateLegacyJobsAction(legacyJobs: any[]): Promise<ActionResult> {
+export async function migrateLegacyJobsAction(legacyJobs: LegacyJob[]): Promise<ActionResult<{ migratedCount: number; totalCount: number }>> {
   try {
     let migratedCount = 0
     

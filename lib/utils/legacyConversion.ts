@@ -1,7 +1,6 @@
 import type { JobDescriptionInput } from '@/lib/repositories/jobDescriptions'
 
-// Migration helper: convert old Job interface to new JobDescription
-export function convertLegacyJobToJobDescription(legacyJob: {
+export type LegacyJob = {
   id: string
   companyName: string
   jobLink?: string
@@ -9,20 +8,23 @@ export function convertLegacyJobToJobDescription(legacyJob: {
   createdAt: string
   updatedAt: string
   status: 'saved' | 'analyzed'
-  tailoredResume?: any
+  tailoredResume?: unknown
   coverLetter?: string
-}): JobDescriptionInput {
+}
+
+// Migration helper: convert old Job interface to new JobDescription
+export function convertLegacyJobToJobDescription(legacyJob: LegacyJob): JobDescriptionInput {
   return {
     companyName: legacyJob.companyName,
     jobTitle: 'Software Developer', // Default since legacy doesn't have this
     jobUrl: legacyJob.jobLink,
     description: legacyJob.jobText,
-    location: null,
-    salaryRange: null,
-    employmentType: null,
+    location: undefined,
+    salaryRange: undefined,
+    employmentType: undefined,
     remote: false,
-    requirements: null,
-    benefits: null,
+    requirements: undefined,
+    benefits: undefined,
     metadata: {
       legacyId: legacyJob.id,
       legacyStatus: legacyJob.status,

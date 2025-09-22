@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -23,9 +22,9 @@ export default function JobDetailClient({ job }: JobDetailClientProps) {
   const [error, setError] = React.useState<string | null>(null)
 
   // Extract legacy data from metadata if it exists
-  const legacyData = job.metadata as any
-  const hasTailoredResume = legacyData?.legacyTailoredResume
-  const hasCoverLetter = legacyData?.legacyCoverLetter
+  const legacyData = job.metadata as Record<string, unknown> | null
+  const hasTailoredResume = (legacyData as { legacyTailoredResume?: unknown } | null)?.legacyTailoredResume
+  const hasCoverLetter = (legacyData as { legacyCoverLetter?: string } | null)?.legacyCoverLetter
 
   return (
     <Card>
@@ -69,7 +68,7 @@ export default function JobDetailClient({ job }: JobDetailClientProps) {
                   const legacyJob = {
                     id: job.id,
                     companyName: job.companyName,
-                    jobLink: job.jobUrl,
+                    jobLink: job.jobUrl ?? undefined,
                     jobText: job.description,
                     createdAt: job.createdAt.toString(),
                     updatedAt: job.updatedAt.toString(),

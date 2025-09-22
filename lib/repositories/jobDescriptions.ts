@@ -1,6 +1,6 @@
 import { eq, and, desc } from 'drizzle-orm'
 import { db } from '@/lib/db'
-import { jobDescriptions, users, type JobDescription, type NewJobDescription } from '@/lib/db/schema'
+import { jobDescriptions, users, type JobDescription } from '@/lib/db/schema'
 import { getServerSupabase } from '@/lib/supabase/server'
 import { z } from 'zod'
 

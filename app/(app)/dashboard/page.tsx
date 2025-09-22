@@ -4,6 +4,8 @@ import { JobsTable } from '@/components/JobsTable'
 import { MigrationBanner } from '@/components/MigrationBanner'
 import { getAllJobDescriptionsAction } from '@/lib/actions/jobDescriptions'
 
+export const dynamic = 'force-dynamic'
+
 export default async function DashboardPage() {
   const jobs = await getAllJobDescriptionsAction()
   
